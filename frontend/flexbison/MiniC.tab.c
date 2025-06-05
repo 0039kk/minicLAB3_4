@@ -76,18 +76,19 @@
 #include "FlexLexer.h"
 
 // bison生成的头文件
-#include "BisonParser.h"
+//#include "BisonParser.h"
 
 // 抽象语法树函数定义原型头文件
 #include "AST.h"
 
 #include "IntegerType.h"
 
+#include "AttrType.h"
 // LR分析失败时所调用函数的原型声明
 void yyerror(char * msg);
 
 
-#line 91 "MiniC.tab.c"
+#line 92 "MiniC.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -110,7 +111,91 @@ void yyerror(char * msg);
 #  endif
 # endif
 
-#include "MiniC.tab.h"
+
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Token kinds.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+  enum yytokentype
+  {
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    UNARY_MINUS = 258,             /* UNARY_MINUS  */
+    T_IFX = 259,                   /* T_IFX  */
+    T_DIGIT = 260,                 /* T_DIGIT  */
+    T_ID = 261,                    /* T_ID  */
+    T_INT = 262,                   /* T_INT  */
+    T_VOID = 263,                  /* T_VOID  */
+    T_RETURN = 264,                /* T_RETURN  */
+    T_SEMICOLON = 265,             /* T_SEMICOLON  */
+    T_L_PAREN = 266,               /* T_L_PAREN  */
+    T_R_PAREN = 267,               /* T_R_PAREN  */
+    T_L_BRACE = 268,               /* T_L_BRACE  */
+    T_R_BRACE = 269,               /* T_R_BRACE  */
+    T_COMMA = 270,                 /* T_COMMA  */
+    T_LT = 271,                    /* T_LT  */
+    T_LE = 272,                    /* T_LE  */
+    T_GT = 273,                    /* T_GT  */
+    T_GE = 274,                    /* T_GE  */
+    T_EQ = 275,                    /* T_EQ  */
+    T_NE = 276,                    /* T_NE  */
+    T_LAND = 277,                  /* T_LAND  */
+    T_LOR = 278,                   /* T_LOR  */
+    T_LNOT = 279,                  /* T_LNOT  */
+    T_IF = 280,                    /* T_IF  */
+    T_ELSE = 281,                  /* T_ELSE  */
+    T_WHILE = 282,                 /* T_WHILE  */
+    T_BREAK = 283,                 /* T_BREAK  */
+    T_CONTINUE = 284,              /* T_CONTINUE  */
+    T_ASSIGN = 285,                /* T_ASSIGN  */
+    T_SUB = 286,                   /* T_SUB  */
+    T_ADD = 287,                   /* T_ADD  */
+    T_MUL = 288,                   /* T_MUL  */
+    T_DIV = 289,                   /* T_DIV  */
+    T_MOD = 290                    /* T_MOD  */
+  };
+  typedef enum yytokentype yytoken_kind_t;
+#endif
+
+/* Value type.  */
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+union YYSTYPE
+{
+#line 23 "MiniC.y"
+
+    class ast_node * node;
+
+    struct digit_int_attr integer_num;
+    struct digit_real_attr float_num;
+    struct var_id_attr var_id;
+    struct type_attr type;
+    int op_class;
+
+#line 184 "MiniC.tab.c"
+
+};
+typedef union YYSTYPE YYSTYPE;
+# define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
+#endif
+
+
+extern YYSTYPE yylval;
+
+
+int yyparse (void);
+
+
+
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -119,42 +204,72 @@ enum yysymbol_kind_t
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
   YYSYMBOL_UNARY_MINUS = 3,                /* UNARY_MINUS  */
-  YYSYMBOL_T_DIGIT = 4,                    /* T_DIGIT  */
-  YYSYMBOL_T_ID = 5,                       /* T_ID  */
-  YYSYMBOL_T_INT = 6,                      /* T_INT  */
-  YYSYMBOL_T_RETURN = 7,                   /* T_RETURN  */
-  YYSYMBOL_T_SEMICOLON = 8,                /* T_SEMICOLON  */
-  YYSYMBOL_T_L_PAREN = 9,                  /* T_L_PAREN  */
-  YYSYMBOL_T_R_PAREN = 10,                 /* T_R_PAREN  */
-  YYSYMBOL_T_L_BRACE = 11,                 /* T_L_BRACE  */
-  YYSYMBOL_T_R_BRACE = 12,                 /* T_R_BRACE  */
-  YYSYMBOL_T_COMMA = 13,                   /* T_COMMA  */
-  YYSYMBOL_T_ASSIGN = 14,                  /* T_ASSIGN  */
-  YYSYMBOL_T_SUB = 15,                     /* T_SUB  */
-  YYSYMBOL_T_ADD = 16,                     /* T_ADD  */
-  YYSYMBOL_T_MUL = 17,                     /* T_MUL  */
-  YYSYMBOL_T_DIV = 18,                     /* T_DIV  */
-  YYSYMBOL_T_MOD = 19,                     /* T_MOD  */
-  YYSYMBOL_YYACCEPT = 20,                  /* $accept  */
-  YYSYMBOL_CompileUnit = 21,               /* CompileUnit  */
-  YYSYMBOL_FuncDef = 22,                   /* FuncDef  */
-  YYSYMBOL_Block = 23,                     /* Block  */
-  YYSYMBOL_BlockItemList = 24,             /* BlockItemList  */
-  YYSYMBOL_BlockItem = 25,                 /* BlockItem  */
-  YYSYMBOL_VarDecl = 26,                   /* VarDecl  */
-  YYSYMBOL_VarDeclExpr = 27,               /* VarDeclExpr  */
-  YYSYMBOL_VarDef = 28,                    /* VarDef  */
-  YYSYMBOL_BasicType = 29,                 /* BasicType  */
-  YYSYMBOL_Statement = 30,                 /* Statement  */
-  YYSYMBOL_Expr = 31,                      /* Expr  */
-  YYSYMBOL_AddExp = 32,                    /* AddExp  */
-  YYSYMBOL_MulExp = 33,                    /* MulExp  */
-  YYSYMBOL_AddOp = 34,                     /* AddOp  */
-  YYSYMBOL_MulOp = 35,                     /* MulOp  */
-  YYSYMBOL_UnaryExp = 36,                  /* UnaryExp  */
-  YYSYMBOL_PrimaryExp = 37,                /* PrimaryExp  */
-  YYSYMBOL_RealParamList = 38,             /* RealParamList  */
-  YYSYMBOL_LVal = 39                       /* LVal  */
+  YYSYMBOL_T_IFX = 4,                      /* T_IFX  */
+  YYSYMBOL_T_DIGIT = 5,                    /* T_DIGIT  */
+  YYSYMBOL_T_ID = 6,                       /* T_ID  */
+  YYSYMBOL_T_INT = 7,                      /* T_INT  */
+  YYSYMBOL_T_VOID = 8,                     /* T_VOID  */
+  YYSYMBOL_T_RETURN = 9,                   /* T_RETURN  */
+  YYSYMBOL_T_SEMICOLON = 10,               /* T_SEMICOLON  */
+  YYSYMBOL_T_L_PAREN = 11,                 /* T_L_PAREN  */
+  YYSYMBOL_T_R_PAREN = 12,                 /* T_R_PAREN  */
+  YYSYMBOL_T_L_BRACE = 13,                 /* T_L_BRACE  */
+  YYSYMBOL_T_R_BRACE = 14,                 /* T_R_BRACE  */
+  YYSYMBOL_T_COMMA = 15,                   /* T_COMMA  */
+  YYSYMBOL_T_LT = 16,                      /* T_LT  */
+  YYSYMBOL_T_LE = 17,                      /* T_LE  */
+  YYSYMBOL_T_GT = 18,                      /* T_GT  */
+  YYSYMBOL_T_GE = 19,                      /* T_GE  */
+  YYSYMBOL_T_EQ = 20,                      /* T_EQ  */
+  YYSYMBOL_T_NE = 21,                      /* T_NE  */
+  YYSYMBOL_T_LAND = 22,                    /* T_LAND  */
+  YYSYMBOL_T_LOR = 23,                     /* T_LOR  */
+  YYSYMBOL_T_LNOT = 24,                    /* T_LNOT  */
+  YYSYMBOL_T_IF = 25,                      /* T_IF  */
+  YYSYMBOL_T_ELSE = 26,                    /* T_ELSE  */
+  YYSYMBOL_T_WHILE = 27,                   /* T_WHILE  */
+  YYSYMBOL_T_BREAK = 28,                   /* T_BREAK  */
+  YYSYMBOL_T_CONTINUE = 29,                /* T_CONTINUE  */
+  YYSYMBOL_T_ASSIGN = 30,                  /* T_ASSIGN  */
+  YYSYMBOL_T_SUB = 31,                     /* T_SUB  */
+  YYSYMBOL_T_ADD = 32,                     /* T_ADD  */
+  YYSYMBOL_T_MUL = 33,                     /* T_MUL  */
+  YYSYMBOL_T_DIV = 34,                     /* T_DIV  */
+  YYSYMBOL_T_MOD = 35,                     /* T_MOD  */
+  YYSYMBOL_YYACCEPT = 36,                  /* $accept  */
+  YYSYMBOL_CompileUnit = 37,               /* CompileUnit  */
+  YYSYMBOL_FuncDef = 38,                   /* FuncDef  */
+  YYSYMBOL_FormalParamListOpt = 39,        /* FormalParamListOpt  */
+  YYSYMBOL_FormalParamList = 40,           /* FormalParamList  */
+  YYSYMBOL_FormalParamDecl = 41,           /* FormalParamDecl  */
+  YYSYMBOL_Block = 42,                     /* Block  */
+  YYSYMBOL_BlockItemList = 43,             /* BlockItemList  */
+  YYSYMBOL_BlockItem = 44,                 /* BlockItem  */
+  YYSYMBOL_VarDecl = 45,                   /* VarDecl  */
+  YYSYMBOL_VarDeclExpr = 46,               /* VarDeclExpr  */
+  YYSYMBOL_VarDef = 47,                    /* VarDef  */
+  YYSYMBOL_BasicType = 48,                 /* BasicType  */
+  YYSYMBOL_Statement = 49,                 /* Statement  */
+  YYSYMBOL_IfStmt = 50,                    /* IfStmt  */
+  YYSYMBOL_WhileStmt = 51,                 /* WhileStmt  */
+  YYSYMBOL_BreakStmt = 52,                 /* BreakStmt  */
+  YYSYMBOL_ContinueStmt = 53,              /* ContinueStmt  */
+  YYSYMBOL_Expr = 54,                      /* Expr  */
+  YYSYMBOL_AssignExpr = 55,                /* AssignExpr  */
+  YYSYMBOL_LOrExp = 56,                    /* LOrExp  */
+  YYSYMBOL_LAndExp = 57,                   /* LAndExp  */
+  YYSYMBOL_EqExp = 58,                     /* EqExp  */
+  YYSYMBOL_EqOp = 59,                      /* EqOp  */
+  YYSYMBOL_RelExp = 60,                    /* RelExp  */
+  YYSYMBOL_RelOp = 61,                     /* RelOp  */
+  YYSYMBOL_AddExp = 62,                    /* AddExp  */
+  YYSYMBOL_MulExp = 63,                    /* MulExp  */
+  YYSYMBOL_AddOp = 64,                     /* AddOp  */
+  YYSYMBOL_MulOp = 65,                     /* MulOp  */
+  YYSYMBOL_UnaryExp = 66,                  /* UnaryExp  */
+  YYSYMBOL_PrimaryExp = 67,                /* PrimaryExp  */
+  YYSYMBOL_RealParamList = 68,             /* RealParamList  */
+  YYSYMBOL_LVal = 69                       /* LVal  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -482,19 +597,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  7
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   67
+#define YYLAST   131
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  20
+#define YYNTOKENS  36
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  20
+#define YYNNTS  34
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  42
+#define YYNRULES  74
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  67
+#define YYNSTATES  117
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   274
+#define YYMAXUTOK   290
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -535,18 +650,23 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    79,    79,    87,    93,    98,   105,   128,   134,   145,
-     150,   159,   163,   174,   180,   192,   206,   217,   226,   232,
-     238,   244,   250,   260,   270,   273,   276,   279,   283,   286,
-     291,   294,   297,   304,   310,   313,   329,   348,   352,   358,
-     370,   374,   381
+       0,   115,   115,   123,   129,   134,   144,   159,   162,   166,
+     175,   179,   186,   205,   211,   222,   227,   236,   240,   251,
+     257,   276,   299,   305,   317,   327,   334,   335,   336,   337,
+     338,   339,   342,   349,   354,   360,   368,   374,   385,   390,
+     394,   398,   401,   405,   408,   412,   415,   419,   420,   424,
+     427,   431,   432,   433,   434,   442,   445,   448,   451,   457,
+     460,   465,   468,   471,   478,   484,   488,   492,   508,   527,
+     531,   537,   549,   553,   560
 };
 #endif
 
@@ -562,13 +682,18 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "UNARY_MINUS",
-  "T_DIGIT", "T_ID", "T_INT", "T_RETURN", "T_SEMICOLON", "T_L_PAREN",
-  "T_R_PAREN", "T_L_BRACE", "T_R_BRACE", "T_COMMA", "T_ASSIGN", "T_SUB",
-  "T_ADD", "T_MUL", "T_DIV", "T_MOD", "$accept", "CompileUnit", "FuncDef",
+  "\"end of file\"", "error", "\"invalid token\"", "UNARY_MINUS", "T_IFX",
+  "T_DIGIT", "T_ID", "T_INT", "T_VOID", "T_RETURN", "T_SEMICOLON",
+  "T_L_PAREN", "T_R_PAREN", "T_L_BRACE", "T_R_BRACE", "T_COMMA", "T_LT",
+  "T_LE", "T_GT", "T_GE", "T_EQ", "T_NE", "T_LAND", "T_LOR", "T_LNOT",
+  "T_IF", "T_ELSE", "T_WHILE", "T_BREAK", "T_CONTINUE", "T_ASSIGN",
+  "T_SUB", "T_ADD", "T_MUL", "T_DIV", "T_MOD", "$accept", "CompileUnit",
+  "FuncDef", "FormalParamListOpt", "FormalParamList", "FormalParamDecl",
   "Block", "BlockItemList", "BlockItem", "VarDecl", "VarDeclExpr",
-  "VarDef", "BasicType", "Statement", "Expr", "AddExp", "MulExp", "AddOp",
-  "MulOp", "UnaryExp", "PrimaryExp", "RealParamList", "LVal", YY_NULLPTR
+  "VarDef", "BasicType", "Statement", "IfStmt", "WhileStmt", "BreakStmt",
+  "ContinueStmt", "Expr", "AssignExpr", "LOrExp", "LAndExp", "EqExp",
+  "EqOp", "RelExp", "RelOp", "AddExp", "MulExp", "AddOp", "MulOp",
+  "UnaryExp", "PrimaryExp", "RealParamList", "LVal", YY_NULLPTR
 };
 
 static const char *
@@ -578,7 +703,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-26)
+#define YYPACT_NINF (-58)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -592,13 +717,18 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       3,   -26,    40,   -26,   -26,    35,     8,   -26,   -26,   -26,
-     -26,    11,    15,   -26,   -26,   -26,    46,    44,    -1,   -26,
-     -26,    48,    29,   -26,    29,   -26,    29,   -26,    14,   -26,
-     -26,    11,   -26,    50,   -26,    38,    33,   -26,    47,    26,
-      51,   -26,    52,   -26,   -26,   -26,   -26,   -26,   -26,    29,
-     -26,   -26,   -26,    29,    29,   -26,   -26,     2,   -26,   -26,
-     -26,   -26,    55,   -26,    29,   -26,   -26
+       2,   -58,    22,   -58,   -58,    -5,    13,   -58,   -58,   -58,
+     -58,    27,   -10,   -58,     8,   -58,    16,    10,   -58,    30,
+      32,   -58,    59,   -58,    61,    10,    10,    10,   -58,   -58,
+      55,    57,    -7,    58,    25,    26,   -58,   -58,    50,    75,
+       2,   -58,     6,    70,   -58,   -58,   -58,    10,    10,   -58,
+     -58,    10,   -58,   -58,   -58,   -58,    10,   -58,   -58,    10,
+     -58,   -58,   -58,    10,    10,    39,   -58,   -58,   -58,   -58,
+      20,   -58,    57,    -7,    58,    25,    26,   -58,   -58,    10,
+     -58,   -58,    81,    86,    88,    92,   -58,    80,   -58,   -58,
+      27,   -58,   -58,   -58,   -58,   -58,    96,   -58,    10,   100,
+      10,    10,   -58,   -58,   -58,   -58,   -58,   -58,   -58,   101,
+     104,    90,    90,    94,   -58,    90,   -58
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -606,27 +736,36 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,    17,     0,     2,     3,     0,     0,     1,     4,     5,
-      13,     0,    16,    14,    16,    15,     0,     0,     0,     6,
-      38,    42,     0,    22,     0,     7,     0,    20,     0,     9,
-      12,     0,    11,     0,    23,    25,    27,    33,    39,     0,
-       0,    39,     0,    34,     8,    10,    21,    29,    28,     0,
-      30,    31,    32,     0,     0,    35,    40,     0,    18,    37,
-      24,    26,     0,    36,     0,    19,    41
+       0,    24,     0,     2,     3,     0,     0,     1,     4,     5,
+      19,     0,    22,    20,    22,    21,     7,     0,     9,     0,
+       8,    10,     0,    70,    74,     0,     0,     0,    23,    38,
+      40,    42,    44,    46,    50,    56,    58,    64,    71,     0,
+       0,    12,     0,     0,    66,    71,    65,     0,     0,    47,
+      48,     0,    51,    52,    53,    54,     0,    60,    59,     0,
+      61,    62,    63,     0,     0,     0,     6,    11,    67,    72,
+       0,    69,    41,    43,    45,    49,    55,    57,    39,     0,
+      32,    13,     0,     0,     0,     0,    26,     0,    15,    18,
+       0,    17,    27,    28,    29,    30,     0,    68,     0,     0,
+       0,     0,    36,    37,    14,    16,    31,    73,    25,     0,
+       0,     0,     0,    33,    35,     0,    34
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -26,   -26,    58,    49,   -26,    36,    45,   -26,    54,     9,
-     -26,   -22,    18,   -26,   -26,   -26,   -25,   -26,   -26,    21
+     -58,   -58,   110,   -58,   -58,    82,    84,   -58,    37,    69,
+     -58,   114,   -14,   -57,   -58,   -58,   -58,   -58,   -17,    62,
+     -58,    83,    79,   -58,    77,   -58,    73,    72,   -58,   -58,
+     -23,   -58,   -58,   -20
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     3,    27,    28,    29,    30,     5,    13,     6,
-      32,    33,    34,    35,    49,    53,    36,    37,    57,    41
+       0,     2,     3,    19,    20,    21,    86,    87,    88,    89,
+       5,    13,     6,    91,    92,    93,    94,    95,    96,    29,
+      30,    31,    32,    51,    33,    56,    34,    35,    59,    63,
+      36,    37,    70,    38
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -634,57 +773,82 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      40,    43,    42,    20,    21,     1,    22,    23,    24,     1,
-      18,    25,    63,    12,    26,    64,    14,    56,    20,    21,
-       1,    22,    23,    24,    16,    18,    44,    31,    61,    26,
-      20,    21,    62,    20,    21,    24,    55,    31,    24,    38,
-       7,    26,    66,    10,    26,     4,     1,     9,    11,    38,
-      50,    51,    52,    47,    48,    18,    17,    39,    46,    58,
-       8,    54,    59,    65,    45,    15,    19,    60
+      28,    16,    22,    44,    46,    10,    45,    45,    43,     1,
+      11,    23,    24,    49,    50,    23,    24,    25,    68,    12,
+      17,    25,     7,     1,    18,    69,    22,    45,    45,     1,
+      26,    45,    97,    14,    26,    98,    45,    27,    17,    45,
+      77,    27,    39,    45,    23,    24,     1,    40,    79,    80,
+      25,    90,    65,    81,   113,   114,    57,    58,   116,    60,
+      61,    62,    99,    26,    82,    41,    83,    84,    85,     4,
+      27,     9,    42,    90,    52,    53,    54,    55,    47,    48,
+      64,   107,    71,   109,   110,    23,    24,     1,    65,    79,
+      80,    25,   100,    65,   104,    23,    24,   101,   102,    79,
+      80,    25,   103,    65,    26,    82,   106,    83,    84,    85,
+     108,    27,     8,   111,    26,    82,   112,    83,    84,    85,
+     115,    27,    67,    66,   105,    15,    78,    73,    74,    75,
+      72,    76
 };
 
 static const yytype_int8 yycheck[] =
 {
-      22,    26,    24,     4,     5,     6,     7,     8,     9,     6,
-      11,    12,    10,     5,    15,    13,     5,    39,     4,     5,
-       6,     7,     8,     9,     9,    11,    12,    18,    53,    15,
-       4,     5,    54,     4,     5,     9,    10,    28,     9,    18,
-       0,    15,    64,     8,    15,     0,     6,     2,    13,    28,
-      17,    18,    19,    15,    16,    11,    10,     9,     8,     8,
-       2,    14,    10,     8,    28,    11,    17,    49
+      17,    11,    16,    26,    27,    10,    26,    27,    25,     7,
+      15,     5,     6,    20,    21,     5,     6,    11,    12,     6,
+      30,    11,     0,     7,     8,    42,    40,    47,    48,     7,
+      24,    51,    12,     6,    24,    15,    56,    31,    30,    59,
+      63,    31,    12,    63,     5,     6,     7,    15,     9,    10,
+      11,    65,    13,    14,   111,   112,    31,    32,   115,    33,
+      34,    35,    79,    24,    25,     6,    27,    28,    29,     0,
+      31,     2,    11,    87,    16,    17,    18,    19,    23,    22,
+      30,    98,    12,   100,   101,     5,     6,     7,    13,     9,
+      10,    11,    11,    13,    14,     5,     6,    11,    10,     9,
+      10,    11,    10,    13,    24,    25,    10,    27,    28,    29,
+      10,    31,     2,    12,    24,    25,    12,    27,    28,    29,
+      26,    31,    40,    39,    87,    11,    64,    48,    51,    56,
+      47,    59
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     6,    21,    22,    26,    27,    29,     0,    22,    26,
-       8,    13,     5,    28,     5,    28,     9,    10,    11,    23,
-       4,     5,     7,     8,     9,    12,    15,    23,    24,    25,
-      26,    29,    30,    31,    32,    33,    36,    37,    39,     9,
-      31,    39,    31,    36,    12,    25,     8,    15,    16,    34,
-      17,    18,    19,    35,    14,    10,    31,    38,     8,    10,
-      32,    36,    31,    10,    13,     8,    31
+       0,     7,    37,    38,    45,    46,    48,     0,    38,    45,
+      10,    15,     6,    47,     6,    47,    11,    30,     8,    39,
+      40,    41,    48,     5,     6,    11,    24,    31,    54,    55,
+      56,    57,    58,    60,    62,    63,    66,    67,    69,    12,
+      15,     6,    11,    54,    66,    69,    66,    23,    22,    20,
+      21,    59,    16,    17,    18,    19,    61,    31,    32,    64,
+      33,    34,    35,    65,    30,    13,    42,    41,    12,    54,
+      68,    12,    57,    58,    60,    62,    63,    66,    55,     9,
+      10,    14,    25,    27,    28,    29,    42,    43,    44,    45,
+      48,    49,    50,    51,    52,    53,    54,    12,    15,    54,
+      11,    11,    10,    10,    14,    44,    10,    54,    10,    54,
+      54,    12,    12,    49,    49,    26,    49
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    20,    21,    21,    21,    21,    22,    23,    23,    24,
-      24,    25,    25,    26,    27,    27,    28,    29,    30,    30,
-      30,    30,    30,    31,    32,    32,    33,    33,    34,    34,
-      35,    35,    35,    36,    36,    36,    36,    37,    37,    37,
-      38,    38,    39
+       0,    36,    37,    37,    37,    37,    38,    39,    39,    39,
+      40,    40,    41,    42,    42,    43,    43,    44,    44,    45,
+      46,    46,    47,    47,    48,    49,    49,    49,    49,    49,
+      49,    49,    49,    50,    50,    51,    52,    53,    54,    55,
+      55,    56,    56,    57,    57,    58,    58,    59,    59,    60,
+      60,    61,    61,    61,    61,    62,    62,    63,    63,    64,
+      64,    65,    65,    65,    66,    66,    66,    66,    66,    67,
+      67,    67,    68,    68,    69
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     1,     2,     2,     5,     2,     3,     1,
-       2,     1,     1,     2,     2,     3,     1,     1,     3,     4,
-       1,     2,     1,     1,     3,     1,     3,     1,     1,     1,
-       1,     1,     1,     1,     2,     3,     4,     3,     1,     1,
-       1,     3,     1
+       0,     2,     1,     1,     2,     2,     6,     0,     1,     1,
+       1,     3,     2,     2,     3,     1,     2,     1,     1,     2,
+       2,     3,     1,     3,     1,     3,     1,     1,     1,     1,
+       1,     2,     1,     5,     7,     5,     2,     2,     1,     3,
+       1,     3,     1,     3,     1,     3,     1,     1,     1,     3,
+       1,     1,     1,     1,     1,     3,     1,     3,     1,     1,
+       1,     1,     1,     1,     1,     2,     2,     3,     4,     3,
+       1,     1,     1,     3,     1
 };
 
 
@@ -1148,7 +1312,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* CompileUnit: FuncDef  */
-#line 79 "MiniC.y"
+#line 115 "MiniC.y"
                       {
 
 		// 创建一个编译单元的节点AST_OP_COMPILE_UNIT
@@ -1157,324 +1321,585 @@ yyreduce:
 		// 设置到全局变量中
 		ast_root = (yyval.node);
 	}
-#line 1161 "MiniC.tab.c"
+#line 1325 "MiniC.tab.c"
     break;
 
   case 3: /* CompileUnit: VarDecl  */
-#line 87 "MiniC.y"
+#line 123 "MiniC.y"
                   {
 
 		// 创建一个编译单元的节点AST_OP_COMPILE_UNIT
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_COMPILE_UNIT, (yyvsp[0].node));
 		ast_root = (yyval.node);
 	}
-#line 1172 "MiniC.tab.c"
+#line 1336 "MiniC.tab.c"
     break;
 
   case 4: /* CompileUnit: CompileUnit FuncDef  */
-#line 93 "MiniC.y"
+#line 129 "MiniC.y"
                               {
 
 		// 把函数定义的节点作为编译单元的孩子
 		(yyval.node) = (yyvsp[-1].node)->insert_son_node((yyvsp[0].node));
 	}
-#line 1182 "MiniC.tab.c"
+#line 1346 "MiniC.tab.c"
     break;
 
   case 5: /* CompileUnit: CompileUnit VarDecl  */
-#line 98 "MiniC.y"
+#line 134 "MiniC.y"
                               {
 		// 把变量定义的节点作为编译单元的孩子
 		(yyval.node) = (yyvsp[-1].node)->insert_son_node((yyvsp[0].node));
 	}
-#line 1191 "MiniC.tab.c"
+#line 1355 "MiniC.tab.c"
     break;
 
-  case 6: /* FuncDef: BasicType T_ID T_L_PAREN T_R_PAREN Block  */
-#line 105 "MiniC.y"
+  case 6: /* FuncDef: BasicType T_ID T_L_PAREN FormalParamListOpt T_R_PAREN Block  */
+#line 144 "MiniC.y"
+                                                                       {
+        type_attr funcReturnType = (yyvsp[-5].type);
+        var_id_attr funcId = (yyvsp[-4].var_id);
+        ast_node * formalParamsNode = (yyvsp[-2].node); // $4 是 FormalParamListOpt 的结果
+        ast_node * blockNode = (yyvsp[0].node);
+
+        // 如果 formalParamsNode 是 nullptr (因为参数列表是空的或只有 void)，
+        // create_func_def 应该能处理 nullptr，或者你在这里创建一个空的 AST_OP_FUNC_FORMAL_PARAMS 节点
+        if (!formalParamsNode) {
+            formalParamsNode = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS);
+        }
+        (yyval.node) = create_func_def(funcReturnType, funcId, blockNode, formalParamsNode);
+    }
+#line 1373 "MiniC.tab.c"
+    break;
+
+  case 7: /* FormalParamListOpt: %empty  */
+#line 159 "MiniC.y"
                                                     {
-
-		// 函数返回类型
-		type_attr funcReturnType = (yyvsp[-4].type);
-
-		// 函数名
-		var_id_attr funcId = (yyvsp[-3].var_id);
-
-		// 函数体节点即Block，即$5
-		ast_node * blockNode = (yyvsp[0].node);
-
-		// 形参结点没有，设置为空指针
-		ast_node * formalParamsNode = nullptr;
-
-		// 创建函数定义的节点，孩子有类型，函数名，语句块和形参(实际上无)
-		// create_func_def函数内会释放funcId中指向的标识符空间，切记，之后不要再释放，之前一定要是通过strdup函数或者malloc分配的空间
-		(yyval.node) = create_func_def(funcReturnType, funcId, blockNode, formalParamsNode);
-	}
-#line 1214 "MiniC.tab.c"
+                        (yyval.node) = nullptr; // 或者返回一个空的 AST_OP_FUNC_FORMAL_PARAMS 节点
+                    }
+#line 1381 "MiniC.tab.c"
     break;
 
-  case 7: /* Block: T_L_BRACE T_R_BRACE  */
-#line 128 "MiniC.y"
+  case 8: /* FormalParamListOpt: FormalParamList  */
+#line 162 "MiniC.y"
+                                   {
+                        (yyval.node) = (yyvsp[0].node);
+                    }
+#line 1389 "MiniC.tab.c"
+    break;
+
+  case 9: /* FormalParamListOpt: T_VOID  */
+#line 166 "MiniC.y"
+                          { // 假设你为 "void" 添加了 T_VOID token
+                        // 创建一个空的参数列表节点，表示参数是 void
+                        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS);
+                        // 你可能需要在 yylval.type 中为 T_VOID 设置正确的属性
+                        // ast_node* type_node = create_type_node($1);
+                        // $$->insert_son_node(type_node); // 可选：如果想表示 void 参数类型
+                    }
+#line 1401 "MiniC.tab.c"
+    break;
+
+  case 10: /* FormalParamList: FormalParamDecl  */
+#line 175 "MiniC.y"
+                                  {
+                    // 第一个参数
+                    (yyval.node) = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS, (yyvsp[0].node));
+                }
+#line 1410 "MiniC.tab.c"
+    break;
+
+  case 11: /* FormalParamList: FormalParamList T_COMMA FormalParamDecl  */
+#line 179 "MiniC.y"
+                                                        {
+                    // 后续参数
+                    (yyval.node) = (yyvsp[-2].node)->insert_son_node((yyvsp[0].node));
+                }
+#line 1419 "MiniC.tab.c"
+    break;
+
+  case 12: /* FormalParamDecl: BasicType T_ID  */
+#line 186 "MiniC.y"
+                                 {
+                    // $1 是 BasicType (type_attr)
+                    // $2 是 T_ID (var_id_attr)
+                    // ast_node* type_node = create_type_node($1); // 创建类型节点
+                    // ast_node* id_node = ast_node::New($2);    // 创建标识符节点
+                    // free($2.id);
+                    // $$ = create_contain_node(ast_operator_type::AST_OP_VAR_DECL, type_node, id_node);
+                    // $$->type = type_node->type; // 将类型存到 VAR_DECL 节点上
+
+                    // 使用你现有的 createVarDeclNode(type_attr&, var_id_attr&)
+                    // 这个函数在 AST.cpp 中，但你需要确保它返回的是 AST_OP_VAR_DECL 节点
+                    // 并且在 create_func_def 或 IRGenerator 中能正确处理这种参数节点
+                    (yyval.node) = createVarDeclNode((yyvsp[-1].type), (yyvsp[0].var_id)); // createVarDeclNode 应该会 free($2.id)
+                }
+#line 1438 "MiniC.tab.c"
+    break;
+
+  case 13: /* Block: T_L_BRACE T_R_BRACE  */
+#line 205 "MiniC.y"
                             {
 		// 语句块没有语句
 
 		// 为了方便创建一个空的Block节点
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_BLOCK);
 	}
-#line 1225 "MiniC.tab.c"
+#line 1449 "MiniC.tab.c"
     break;
 
-  case 8: /* Block: T_L_BRACE BlockItemList T_R_BRACE  */
-#line 134 "MiniC.y"
+  case 14: /* Block: T_L_BRACE BlockItemList T_R_BRACE  */
+#line 211 "MiniC.y"
                                             {
 		// 语句块含有语句
 
 		// BlockItemList归约时内部创建Block节点，并把语句加入，这里不创建Block节点
 		(yyval.node) = (yyvsp[-1].node);
 	}
-#line 1236 "MiniC.tab.c"
+#line 1460 "MiniC.tab.c"
     break;
 
-  case 9: /* BlockItemList: BlockItem  */
-#line 145 "MiniC.y"
+  case 15: /* BlockItemList: BlockItem  */
+#line 222 "MiniC.y"
                           {
 		// 第一个左侧的孩子节点归约成Block节点，后续语句可持续作为孩子追加到Block节点中
 		// 创建一个AST_OP_BLOCK类型的中间节点，孩子为Statement($1)
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_BLOCK, (yyvsp[0].node));
 	}
-#line 1246 "MiniC.tab.c"
+#line 1470 "MiniC.tab.c"
     break;
 
-  case 10: /* BlockItemList: BlockItemList BlockItem  */
-#line 150 "MiniC.y"
+  case 16: /* BlockItemList: BlockItemList BlockItem  */
+#line 227 "MiniC.y"
                                   {
 		// 把BlockItem归约的节点加入到BlockItemList的节点中
 		(yyval.node) = (yyvsp[-1].node)->insert_son_node((yyvsp[0].node));
 	}
-#line 1255 "MiniC.tab.c"
+#line 1479 "MiniC.tab.c"
     break;
 
-  case 11: /* BlockItem: Statement  */
-#line 159 "MiniC.y"
+  case 17: /* BlockItem: Statement  */
+#line 236 "MiniC.y"
                        {
 		// 语句节点传递给归约后的节点上，综合属性
 		(yyval.node) = (yyvsp[0].node);
 	}
-#line 1264 "MiniC.tab.c"
+#line 1488 "MiniC.tab.c"
     break;
 
-  case 12: /* BlockItem: VarDecl  */
-#line 163 "MiniC.y"
+  case 18: /* BlockItem: VarDecl  */
+#line 240 "MiniC.y"
                   {
 		// 变量声明节点传递给归约后的节点上，综合属性
 		(yyval.node) = (yyvsp[0].node);
 	}
-#line 1273 "MiniC.tab.c"
+#line 1497 "MiniC.tab.c"
     break;
 
-  case 13: /* VarDecl: VarDeclExpr T_SEMICOLON  */
-#line 174 "MiniC.y"
+  case 19: /* VarDecl: VarDeclExpr T_SEMICOLON  */
+#line 251 "MiniC.y"
                                   {
 		(yyval.node) = (yyvsp[-1].node);
 	}
-#line 1281 "MiniC.tab.c"
+#line 1505 "MiniC.tab.c"
     break;
 
-  case 14: /* VarDeclExpr: BasicType VarDef  */
-#line 180 "MiniC.y"
+  case 20: /* VarDeclExpr: BasicType VarDef  */
+#line 257 "MiniC.y"
                               {
+        // ... 动作代码，为单个 BasicType VarDef 创建声明节点 ...
+        // 例如，创建一个 AST_OP_VAR_DECL 节点，然后包装在一个临时的 AST_OP_DECL_STMT 中
+        // （如果你的 create_var_decl_stmt_node 是这样工作的）
+        // 或者 VarDeclExpr 只产生一个 AST_OP_VAR_DECL 节点，
+        // 然后 VarDecl: VarDeclExpr T_SEMICOLON; 会将单个 VarDecl 包装成 DECL_STMT
+        // 而 VarDecl : VarDeclExprList T_SEMICOLON; (VarDeclExprList -> VarDeclExpr | VarDeclExprList ',' VarDeclExpr)
+        // 会处理多个。
 
-		// 创建类型节点
-		ast_node * type_node = create_type_node((yyvsp[-1].type));
+        // 假设我们保持你原有的 VarDeclExpr 结构，它能处理逗号分隔
+        // 那么第一个产生式是基础情况：
+        ast_node * type_node = create_type_node((yyvsp[-1].type));
+        ast_node * single_var_decl_node = create_contain_node(ast_operator_type::AST_OP_VAR_DECL, type_node, (yyvsp[0].node) /*VarDef node*/);
+        single_var_decl_node->type = type_node->type;
 
-		// 创建变量定义节点
-		ast_node * decl_node = create_contain_node(ast_operator_type::AST_OP_VAR_DECL, type_node, (yyvsp[0].node));
-		decl_node->type = type_node->type;
-
-		// 创建变量声明语句，并加入第一个变量
-		(yyval.node) = create_var_decl_stmt_node(decl_node);
-	}
-#line 1298 "MiniC.tab.c"
+        // create_var_decl_stmt_node 期望一个或多个 VAR_DECL 节点作为其子节点。
+        // 对于第一个 VarDef，我们创建一个只包含一个 VAR_DECL 的 DECL_STMT。
+        (yyval.node) = create_var_decl_stmt_node(single_var_decl_node);
+    }
+#line 1529 "MiniC.tab.c"
     break;
 
-  case 15: /* VarDeclExpr: VarDeclExpr T_COMMA VarDef  */
-#line 192 "MiniC.y"
-                                     {
+  case 21: /* VarDeclExpr: VarDeclExpr T_COMMA VarDef  */
+#line 276 "MiniC.y"
+                                 { // <--- 这里之前可能是 VarDefList，应为 VarDef
+        // $1 是前一个 VarDeclExpr (它是一个 AST_OP_DECL_STMT 节点)
+        // $3 是新的 VarDef 节点
 
-		// 创建类型节点，这里从VarDeclExpr获取类型，前面已经设置
-		ast_node * type_node = ast_node::New((yyvsp[-2].node)->type);
+        // 需要从 $1 (AST_OP_DECL_STMT) 中获取类型信息
+        // 假设 $1 的第一个子节点 (AST_OP_VAR_DECL) 的第一个子节点是类型节点
+        if (!(yyvsp[-2].node) || (yyvsp[-2].node)->sons.empty() || !(yyvsp[-2].node)->sons[0] || (yyvsp[-2].node)->sons[0]->sons.empty() || !(yyvsp[-2].node)->sons[0]->sons[0]->type) {
+            yyerror("Internal error: Cannot extract type from previous VarDeclExpr");
+            YYABORT;
+        }
+        ast_node * type_node_for_new_var = ast_node::New((yyvsp[-2].node)->sons[0]->sons[0]->type);
 
-		// 创建变量定义节点
-		ast_node * decl_node = create_contain_node(ast_operator_type::AST_OP_VAR_DECL, type_node, (yyvsp[0].node));
 
-		// 插入到变量声明语句
-		(yyval.node) = (yyvsp[-2].node)->insert_son_node(decl_node);
-	}
-#line 1314 "MiniC.tab.c"
+        ast_node * new_single_var_decl_node = create_contain_node(ast_operator_type::AST_OP_VAR_DECL, type_node_for_new_var, (yyvsp[0].node));
+        new_single_var_decl_node->type = type_node_for_new_var->type;
+
+        // 将新的 single_var_decl_node 添加到 $1 (AST_OP_DECL_STMT) 的子节点列表中
+        (yyval.node) = (yyvsp[-2].node)->insert_son_node(new_single_var_decl_node);
+    }
+#line 1553 "MiniC.tab.c"
     break;
 
-  case 16: /* VarDef: T_ID  */
-#line 206 "MiniC.y"
+  case 22: /* VarDef: T_ID  */
+#line 299 "MiniC.y"
               {
-		// 变量ID
-
-		(yyval.node) = ast_node::New(var_id_attr{(yyvsp[0].var_id).id, (yyvsp[0].var_id).lineno});
-
-		// 对于字符型字面量的字符串空间需要释放，因词法用到了strdup进行了字符串复制
+		// 变量ID，无初始化
+        // 使用现有的 ast_node::New(var_id_attr) 创建叶子节点
+		(yyval.node) = ast_node::New((yyvsp[0].var_id)); 
 		free((yyvsp[0].var_id).id);
 	}
-#line 1327 "MiniC.tab.c"
+#line 1564 "MiniC.tab.c"
     break;
 
-  case 17: /* BasicType: T_INT  */
-#line 217 "MiniC.y"
+  case 23: /* VarDef: T_ID T_ASSIGN Expr  */
+#line 305 "MiniC.y"
+                             { // 变量ID，带初始化
+        // $1 是 T_ID (var_id_attr)
+        // $3 是 Expr (ast_node*)
+        ast_node* id_node = ast_node::New((yyvsp[-2].var_id)); // 创建代表变量名的叶子节点
+        free((yyvsp[-2].var_id).id); // 释放词法分析器分配的id字符串
+
+        // 创建一个 AST_OP_INIT 节点，其子节点是 id_node 和 $3 (初始化表达式)
+        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_INIT, id_node, (yyvsp[0].node), nullptr);
+	}
+#line 1578 "MiniC.tab.c"
+    break;
+
+  case 24: /* BasicType: T_INT  */
+#line 317 "MiniC.y"
                  {
 		(yyval.type) = (yyvsp[0].type);
 	}
-#line 1335 "MiniC.tab.c"
+#line 1586 "MiniC.tab.c"
     break;
 
-  case 18: /* Statement: T_RETURN Expr T_SEMICOLON  */
-#line 226 "MiniC.y"
+  case 25: /* Statement: T_RETURN Expr T_SEMICOLON  */
+#line 327 "MiniC.y"
                                       {
-		// 返回语句
-
-		// 创建返回节点AST_OP_RETURN，其孩子为Expr，即$2
-		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_RETURN, (yyvsp[-1].node));
-	}
-#line 1346 "MiniC.tab.c"
+        // 假设 create_unary_op_node(op, child)
+        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_RETURN, (yyvsp[-1].node));
+    }
+#line 1595 "MiniC.tab.c"
     break;
 
-  case 19: /* Statement: LVal T_ASSIGN Expr T_SEMICOLON  */
-#line 232 "MiniC.y"
-                                         {
-		// 赋值语句
-
-		// 创建一个AST_OP_ASSIGN类型的中间节点，孩子为LVal($1)和Expr($3)
-		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_ASSIGN, (yyvsp[-3].node), (yyvsp[-1].node));
-	}
-#line 1357 "MiniC.tab.c"
+  case 26: /* Statement: Block  */
+#line 334 "MiniC.y"
+            { (yyval.node) = (yyvsp[0].node); }
+#line 1601 "MiniC.tab.c"
     break;
 
-  case 20: /* Statement: Block  */
-#line 238 "MiniC.y"
-                {
-		// 语句块
-
-		// 内部已创建block节点，直接传递给Statement
-		(yyval.node) = (yyvsp[0].node);
-	}
-#line 1368 "MiniC.tab.c"
+  case 27: /* Statement: IfStmt  */
+#line 335 "MiniC.y"
+                { (yyval.node) = (yyvsp[0].node); }
+#line 1607 "MiniC.tab.c"
     break;
 
-  case 21: /* Statement: Expr T_SEMICOLON  */
-#line 244 "MiniC.y"
-                           {
-		// 表达式语句
-
-		// 内部已创建表达式，直接传递给Statement
-		(yyval.node) = (yyvsp[-1].node);
-	}
-#line 1379 "MiniC.tab.c"
+  case 28: /* Statement: WhileStmt  */
+#line 336 "MiniC.y"
+                { (yyval.node) = (yyvsp[0].node); }
+#line 1613 "MiniC.tab.c"
     break;
 
-  case 22: /* Statement: T_SEMICOLON  */
-#line 250 "MiniC.y"
-                      {
-		// 空语句
-
-		// 直接返回空指针，需要再把语句加入到语句块时要注意判断，空语句不要加入
-		(yyval.node) = nullptr;
-	}
-#line 1390 "MiniC.tab.c"
+  case 29: /* Statement: BreakStmt  */
+#line 337 "MiniC.y"
+                { (yyval.node) = (yyvsp[0].node); }
+#line 1619 "MiniC.tab.c"
     break;
 
-  case 23: /* Expr: AddExp  */
-#line 260 "MiniC.y"
-              {
-		// 直接传递给归约后的节点
-		(yyval.node) = (yyvsp[0].node);
-	}
-#line 1399 "MiniC.tab.c"
+  case 30: /* Statement: ContinueStmt  */
+#line 338 "MiniC.y"
+                   { (yyval.node) = (yyvsp[0].node); }
+#line 1625 "MiniC.tab.c"
     break;
 
-  case 24: /* AddExp: MulExp AddOp AddExp  */
-#line 270 "MiniC.y"
-                             { 
-            (yyval.node) = create_contain_node(ast_operator_type((yyvsp[-1].op_class)), (yyvsp[-2].node), (yyvsp[0].node)); 
+  case 31: /* Statement: Expr T_SEMICOLON  */
+#line 339 "MiniC.y"
+                       {          // 表达式语句 (可能包含赋值表达式)
+        (yyval.node) = (yyvsp[-1].node);
+    }
+#line 1633 "MiniC.tab.c"
+    break;
+
+  case 32: /* Statement: T_SEMICOLON  */
+#line 342 "MiniC.y"
+                  {               // 空语句
+        // 用一个特殊的节点表示空语句，或者直接返回 nullptr
+        // $$ = create_simple_stmt_node(ast_operator_type::AST_OP_EMPTY_STMT, yylineno);
+        (yyval.node) = nullptr; // 在 BlockItemList 中处理 nullptr
+    }
+#line 1643 "MiniC.tab.c"
+    break;
+
+  case 33: /* IfStmt: T_IF T_L_PAREN Expr T_R_PAREN Statement  */
+#line 349 "MiniC.y"
+                                                              {
+        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_IF, (yyvsp[-2].node), (yyvsp[0].node), nullptr);
+        // 手动设置行号，如果 create_contain_node 不会自动从第一个有效子节点获取的话
+        if ((yyval.node) && (yyvsp[-2].node)) (yyval.node)->line_no = (yyvsp[-2].node)->line_no; // 以条件表达式的行号为准
+    }
+#line 1653 "MiniC.tab.c"
+    break;
+
+  case 34: /* IfStmt: T_IF T_L_PAREN Expr T_R_PAREN Statement T_ELSE Statement  */
+#line 354 "MiniC.y"
+                                                               {
+        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_IF, (yyvsp[-4].node), (yyvsp[-2].node), (yyvsp[0].node));
+        if ((yyval.node) && (yyvsp[-4].node)) (yyval.node)->line_no = (yyvsp[-4].node)->line_no; // 以条件表达式的行号为准
+    }
+#line 1662 "MiniC.tab.c"
+    break;
+
+  case 35: /* WhileStmt: T_WHILE T_L_PAREN Expr T_R_PAREN Statement  */
+#line 360 "MiniC.y"
+                                                       {
+        // 假设 create_while_stmt_node(cond_expr, body_stmt)
+        // $$ = create_while_stmt_node($3, $5);
+        // 使用通用创建函数
+        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_WHILE, (yyvsp[-2].node), (yyvsp[0].node)); // $3是条件, $5是循环体
+    }
+#line 1673 "MiniC.tab.c"
+    break;
+
+  case 36: /* BreakStmt: T_BREAK T_SEMICOLON  */
+#line 368 "MiniC.y"
+                                {
+        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_BREAK);
+        if ((yyval.node)) (yyval.node)->line_no = yylineno; // 确保 $$ 非空后设置行号
+    }
+#line 1682 "MiniC.tab.c"
+    break;
+
+  case 37: /* ContinueStmt: T_CONTINUE T_SEMICOLON  */
+#line 374 "MiniC.y"
+                                      {
+        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_CONTINUE);
+        if ((yyval.node)) (yyval.node)->line_no = yylineno; // 确保 $$ 非空后设置行号
+    }
+#line 1691 "MiniC.tab.c"
+    break;
+
+  case 38: /* Expr: AssignExpr  */
+#line 385 "MiniC.y"
+                     { (yyval.node) = (yyvsp[0].node); }
+#line 1697 "MiniC.tab.c"
+    break;
+
+  case 39: /* AssignExpr: LVal T_ASSIGN AssignExpr  */
+#line 390 "MiniC.y"
+                                      { // 右结合: a = b = c  解析为 a = (b = c)
+               // 假设 create_binary_op_node(op, left, right)
+               (yyval.node) = create_contain_node(ast_operator_type::AST_OP_ASSIGN, (yyvsp[-2].node), (yyvsp[0].node));
+           }
+#line 1706 "MiniC.tab.c"
+    break;
+
+  case 40: /* AssignExpr: LOrExp  */
+#line 394 "MiniC.y"
+                    { (yyval.node) = (yyvsp[0].node); }
+#line 1712 "MiniC.tab.c"
+    break;
+
+  case 41: /* LOrExp: LOrExp T_LOR LAndExp  */
+#line 398 "MiniC.y"
+                               {
+            (yyval.node) = create_contain_node(ast_operator_type::AST_OP_LOR, (yyvsp[-2].node), (yyvsp[0].node));
         }
-#line 1407 "MiniC.tab.c"
+#line 1720 "MiniC.tab.c"
     break;
 
-  case 26: /* MulExp: UnaryExp MulOp UnaryExp  */
-#line 276 "MiniC.y"
-                                 {
-            (yyval.node) = create_contain_node(ast_operator_type((yyvsp[-1].op_class)), (yyvsp[-2].node), (yyvsp[0].node));
+  case 42: /* LOrExp: LAndExp  */
+#line 401 "MiniC.y"
+                  { (yyval.node) = (yyvsp[0].node); }
+#line 1726 "MiniC.tab.c"
+    break;
+
+  case 43: /* LAndExp: LAndExp T_LAND EqExp  */
+#line 405 "MiniC.y"
+                               { // 注意这里下一级是 EqExp (相等表达式)
+            (yyval.node) = create_contain_node(ast_operator_type::AST_OP_LAND, (yyvsp[-2].node), (yyvsp[0].node));
         }
-#line 1415 "MiniC.tab.c"
+#line 1734 "MiniC.tab.c"
     break;
 
-  case 28: /* AddOp: T_ADD  */
-#line 283 "MiniC.y"
+  case 44: /* LAndExp: EqExp  */
+#line 408 "MiniC.y"
+                { (yyval.node) = (yyvsp[0].node); }
+#line 1740 "MiniC.tab.c"
+    break;
+
+  case 45: /* EqExp: EqExp EqOp RelExp  */
+#line 412 "MiniC.y"
+                            { // 注意这里下一级是 RelExp (关系表达式)
+            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
+        }
+#line 1748 "MiniC.tab.c"
+    break;
+
+  case 46: /* EqExp: RelExp  */
+#line 415 "MiniC.y"
+                 { (yyval.node) = (yyvsp[0].node); }
+#line 1754 "MiniC.tab.c"
+    break;
+
+  case 47: /* EqOp: T_EQ  */
+#line 419 "MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_EQ; }
+#line 1760 "MiniC.tab.c"
+    break;
+
+  case 48: /* EqOp: T_NE  */
+#line 420 "MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_NE; }
+#line 1766 "MiniC.tab.c"
+    break;
+
+  case 49: /* RelExp: RelExp RelOp AddExp  */
+#line 424 "MiniC.y"
+                              { // 注意这里下一级是 AddExp (加法表达式)
+            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
+        }
+#line 1774 "MiniC.tab.c"
+    break;
+
+  case 50: /* RelExp: AddExp  */
+#line 427 "MiniC.y"
+                 { (yyval.node) = (yyvsp[0].node); }
+#line 1780 "MiniC.tab.c"
+    break;
+
+  case 51: /* RelOp: T_LT  */
+#line 431 "MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_LT; }
+#line 1786 "MiniC.tab.c"
+    break;
+
+  case 52: /* RelOp: T_LE  */
+#line 432 "MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_LE; }
+#line 1792 "MiniC.tab.c"
+    break;
+
+  case 53: /* RelOp: T_GT  */
+#line 433 "MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_GT; }
+#line 1798 "MiniC.tab.c"
+    break;
+
+  case 54: /* RelOp: T_GE  */
+#line 434 "MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_GE; }
+#line 1804 "MiniC.tab.c"
+    break;
+
+  case 55: /* AddExp: AddExp AddOp MulExp  */
+#line 442 "MiniC.y"
+                              { // <--- 修改为左递归
+            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
+        }
+#line 1812 "MiniC.tab.c"
+    break;
+
+  case 56: /* AddExp: MulExp  */
+#line 445 "MiniC.y"
+                 { (yyval.node) = (yyvsp[0].node); }
+#line 1818 "MiniC.tab.c"
+    break;
+
+  case 57: /* MulExp: MulExp MulOp UnaryExp  */
+#line 448 "MiniC.y"
+                                { // <--- 修改为左递归
+            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
+        }
+#line 1826 "MiniC.tab.c"
+    break;
+
+  case 58: /* MulExp: UnaryExp  */
+#line 451 "MiniC.y"
+                   { (yyval.node) = (yyvsp[0].node); }
+#line 1832 "MiniC.tab.c"
+    break;
+
+  case 59: /* AddOp: T_ADD  */
+#line 457 "MiniC.y"
              {
 		(yyval.op_class) = (int)ast_operator_type::AST_OP_ADD;
 	}
-#line 1423 "MiniC.tab.c"
+#line 1840 "MiniC.tab.c"
     break;
 
-  case 29: /* AddOp: T_SUB  */
-#line 286 "MiniC.y"
+  case 60: /* AddOp: T_SUB  */
+#line 460 "MiniC.y"
                 {
 		(yyval.op_class) = (int)ast_operator_type::AST_OP_SUB;
 	}
-#line 1431 "MiniC.tab.c"
+#line 1848 "MiniC.tab.c"
     break;
 
-  case 30: /* MulOp: T_MUL  */
-#line 291 "MiniC.y"
+  case 61: /* MulOp: T_MUL  */
+#line 465 "MiniC.y"
               {
             (yyval.op_class) = (int)ast_operator_type::AST_OP_MUL;
         }
-#line 1439 "MiniC.tab.c"
+#line 1856 "MiniC.tab.c"
     break;
 
-  case 31: /* MulOp: T_DIV  */
-#line 294 "MiniC.y"
+  case 62: /* MulOp: T_DIV  */
+#line 468 "MiniC.y"
               {
             (yyval.op_class) = (int)ast_operator_type::AST_OP_DIV;
         }
-#line 1447 "MiniC.tab.c"
+#line 1864 "MiniC.tab.c"
     break;
 
-  case 32: /* MulOp: T_MOD  */
-#line 297 "MiniC.y"
+  case 63: /* MulOp: T_MOD  */
+#line 471 "MiniC.y"
               {
             (yyval.op_class) = (int)ast_operator_type::AST_OP_MOD;
         }
-#line 1455 "MiniC.tab.c"
+#line 1872 "MiniC.tab.c"
     break;
 
-  case 33: /* UnaryExp: PrimaryExp  */
-#line 304 "MiniC.y"
+  case 64: /* UnaryExp: PrimaryExp  */
+#line 478 "MiniC.y"
                       {
 		// 基本表达式
 
 		// 传递到归约后的UnaryExp上
 		(yyval.node) = (yyvsp[0].node);
 	}
-#line 1466 "MiniC.tab.c"
+#line 1883 "MiniC.tab.c"
     break;
 
-  case 34: /* UnaryExp: T_SUB UnaryExp  */
-#line 310 "MiniC.y"
+  case 65: /* UnaryExp: T_SUB UnaryExp  */
+#line 484 "MiniC.y"
                                            { 
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_NEG, (yyvsp[0].node));
 	}
-#line 1474 "MiniC.tab.c"
+#line 1891 "MiniC.tab.c"
     break;
 
-  case 35: /* UnaryExp: T_ID T_L_PAREN T_R_PAREN  */
-#line 313 "MiniC.y"
+  case 66: /* UnaryExp: T_LNOT UnaryExp  */
+#line 488 "MiniC.y"
+                      { // 逻辑非! 优先级由 %right T_LNOT 控制
+        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_LNOT, (yyvsp[0].node));
+    }
+#line 1899 "MiniC.tab.c"
+    break;
+
+  case 67: /* UnaryExp: T_ID T_L_PAREN T_R_PAREN  */
+#line 492 "MiniC.y"
                                    {
 		// 没有实参的函数调用
 
@@ -1491,11 +1916,11 @@ yyreduce:
 		(yyval.node) = create_func_call(name_node, paramListNode);
 
 	}
-#line 1495 "MiniC.tab.c"
+#line 1920 "MiniC.tab.c"
     break;
 
-  case 36: /* UnaryExp: T_ID T_L_PAREN RealParamList T_R_PAREN  */
-#line 329 "MiniC.y"
+  case 68: /* UnaryExp: T_ID T_L_PAREN RealParamList T_R_PAREN  */
+#line 508 "MiniC.y"
                                                  {
 		// 含有实参的函数调用
 
@@ -1511,60 +1936,60 @@ yyreduce:
 		// 创建函数调用节点，其孩子为被调用函数名和实参，实参不为空
 		(yyval.node) = create_func_call(name_node, paramListNode);
 	}
-#line 1515 "MiniC.tab.c"
+#line 1940 "MiniC.tab.c"
     break;
 
-  case 37: /* PrimaryExp: T_L_PAREN Expr T_R_PAREN  */
-#line 348 "MiniC.y"
+  case 69: /* PrimaryExp: T_L_PAREN Expr T_R_PAREN  */
+#line 527 "MiniC.y"
                                        {
 		// 带有括号的表达式
 		(yyval.node) = (yyvsp[-1].node);
 	}
-#line 1524 "MiniC.tab.c"
+#line 1949 "MiniC.tab.c"
     break;
 
-  case 38: /* PrimaryExp: T_DIGIT  */
-#line 352 "MiniC.y"
+  case 70: /* PrimaryExp: T_DIGIT  */
+#line 531 "MiniC.y"
                   {
         	// 无符号整型字面量
 
 		// 创建一个无符号整型的终结符节点
 		(yyval.node) = ast_node::New((yyvsp[0].integer_num));
 	}
-#line 1535 "MiniC.tab.c"
+#line 1960 "MiniC.tab.c"
     break;
 
-  case 39: /* PrimaryExp: LVal  */
-#line 358 "MiniC.y"
+  case 71: /* PrimaryExp: LVal  */
+#line 537 "MiniC.y"
                 {
 		// 具有左值的表达式
 
 		// 直接传递到归约后的非终结符号PrimaryExp
 		(yyval.node) = (yyvsp[0].node);
 	}
-#line 1546 "MiniC.tab.c"
+#line 1971 "MiniC.tab.c"
     break;
 
-  case 40: /* RealParamList: Expr  */
-#line 370 "MiniC.y"
+  case 72: /* RealParamList: Expr  */
+#line 549 "MiniC.y"
                      {
 		// 创建实参列表节点，并把当前的Expr节点加入
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_FUNC_REAL_PARAMS, (yyvsp[0].node));
 	}
-#line 1555 "MiniC.tab.c"
+#line 1980 "MiniC.tab.c"
     break;
 
-  case 41: /* RealParamList: RealParamList T_COMMA Expr  */
-#line 374 "MiniC.y"
+  case 73: /* RealParamList: RealParamList T_COMMA Expr  */
+#line 553 "MiniC.y"
                                      {
 		// 左递归增加实参表达式
 		(yyval.node) = (yyvsp[-2].node)->insert_son_node((yyvsp[0].node));
 	}
-#line 1564 "MiniC.tab.c"
+#line 1989 "MiniC.tab.c"
     break;
 
-  case 42: /* LVal: T_ID  */
-#line 381 "MiniC.y"
+  case 74: /* LVal: T_ID  */
+#line 560 "MiniC.y"
             {
 		// 变量名终结符
 
@@ -1574,11 +1999,11 @@ yyreduce:
 		// 对于字符型字面量的字符串空间需要释放，因词法用到了strdup进行了字符串复制
 		free((yyvsp[0].var_id).id);
 	}
-#line 1578 "MiniC.tab.c"
+#line 2003 "MiniC.tab.c"
     break;
 
 
-#line 1582 "MiniC.tab.c"
+#line 2007 "MiniC.tab.c"
 
       default: break;
     }
@@ -1771,7 +2196,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 392 "MiniC.y"
+#line 571 "MiniC.y"
 
 
 // 语法识别错误要调用函数的定义

@@ -37,9 +37,37 @@ void ScopeStack::leaveScope()
 /// @brief 向当前的作用域中加入变量
 /// @param value 变量
 ///
-void ScopeStack::insertValue(Value * value)
+bool ScopeStack::insertValue(Value * value) // <--- 修改点：返回类型和逻辑
 {
-    valueStack.back().insert(make_pair(value->getName(), value));
+    if (!value) {
+        // minic_log(LOG_WARNING, "ScopeStack::insertValue: Attempted to insert a null Value pointer.");
+        return false; // 不能插入空指针
+    }
+    if (value->getName().empty()) {
+        // minic_log(LOG_WARNING, "ScopeStack::insertValue: Attempted to insert a Value with an empty name.");
+        // 根据你的设计，决定是否允许插入没有名字的 Value。通常是不允许的，除非是特殊用途。
+        return false; // 假设不允许
+    }
+
+    if (valueStack.empty()) {
+        // minic_log(LOG_ERROR, "ScopeStack::insertValue: Scope stack is empty. Cannot insert value '%s'. Call enterScope() first.", value->getName().c_str());
+        // 这是一个严重的逻辑错误，作用域栈不应该为空
+        return false;
+    }
+
+    // 获取当前作用域的符号表 (即 valueStack 的最后一个元素)
+    std::unordered_map<std::string, Value *>& current_scope_map = valueStack.back();
+
+    // 检查名称是否已存在于当前作用域
+    if (current_scope_map.count(value->getName())) {
+        // 名称已存在，表示重定义
+        // minic_log(LOG_SEMANTIC_ERROR, "ScopeStack::insertValue: Redefinition of symbol '%s' in the current scope.", value->getName().c_str());
+        return false; // 插入失败
+    }
+
+    // 名称不存在，可以安全插入
+    current_scope_map.insert(std::make_pair(value->getName(), value));
+    return true; // 插入成功
 }
 
 ///

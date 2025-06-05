@@ -21,6 +21,7 @@
 #include "Function.h"
 #include "PlatformArm32.h"
 #include "Common.h"
+#include "FormalParam.h" 
 /// @brief 指定函数名字、函数类型的构造函数
 /// @param _name 函数名称
 /// @param _type 函数类型
@@ -370,7 +371,10 @@ void Function::renameIR()
     }
 
     int32_t nameIndex = 0; // 本函数内统一的命名计数器
-
+	unsigned arg_name_idx = 0;
+	for (auto & param : this->params) { // params is std::vector<FormalParam*>
+    param->setIRName("%arg" + std::to_string(arg_name_idx++)); // e.g., %arg0, %arg1
+}
     // 1. 重命名形式参数
     for (auto & param : this->params) {
         param->setIRName(IR_TEMP_VARNAME_PREFIX + std::to_string(nameIndex++));
@@ -458,4 +462,11 @@ std::string Function::newTempName() {
     // 如果没有定义，你需要定义它，例如：
     // const std::string IR_TEMP_VARNAME_PREFIX = "%t"; (或者在 Common.h)
     return IR_TEMP_VARNAME_PREFIX + std::to_string(tempNameCounter_++);
+}
+
+FormalParam* Function::addFormalParam(Type* type, const std::string& name) {
+    unsigned arg_index = static_cast<unsigned>(this->params.size());
+    FormalParam* new_param = new FormalParam(type, name, this, arg_index); // 调用四参数构造函数
+    this->params.push_back(new_param);
+    return new_param;
 }

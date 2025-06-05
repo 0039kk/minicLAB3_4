@@ -65,7 +65,7 @@ void yyerror(char * msg);
 // %token或%type之后的<>括住的内容成为文法符号的属性，定义在前面的%union中的成员名字。
 %token <integer_num> T_DIGIT
 %token <var_id> T_ID
-%token <type> T_INT
+%token <type> T_INT T_VOID
 
 // 关键或保留字 一词一类 不需要赋予语义属性
 %token T_RETURN
@@ -98,6 +98,8 @@ void yyerror(char * msg);
 %type <node> AddExp UnaryExp PrimaryExp 
 %type <node> MulExp
 %type <node> RealParamList
+%type <node> FormalParamListOpt FormalParamList FormalParamDecl // 新的非终结符
+
 %type <type> BasicType
 %type <op_class> AddOp 
 %type <op_class> MulOp
@@ -135,26 +137,67 @@ CompileUnit : FuncDef {
 	}
 	;
 
-// 函数定义，目前支持整数返回类型，不支持形参
-FuncDef : BasicType T_ID T_L_PAREN T_R_PAREN Block  {
+// 函数定义，目前支持整数返回类型
 
-		// 函数返回类型
-		type_attr funcReturnType = $1;
+// ... 其他规则 ...
 
-		// 函数名
-		var_id_attr funcId = $2;
+FuncDef : BasicType T_ID T_L_PAREN FormalParamListOpt T_R_PAREN Block  {
+        type_attr funcReturnType = $1;
+        var_id_attr funcId = $2;
+        ast_node * formalParamsNode = $4; // $4 是 FormalParamListOpt 的结果
+        ast_node * blockNode = $6;
 
-		// 函数体节点即Block，即$5
-		ast_node * blockNode = $5;
+        // 如果 formalParamsNode 是 nullptr (因为参数列表是空的或只有 void)，
+        // create_func_def 应该能处理 nullptr，或者你在这里创建一个空的 AST_OP_FUNC_FORMAL_PARAMS 节点
+        if (!formalParamsNode) {
+            formalParamsNode = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS);
+        }
+        $$ = create_func_def(funcReturnType, funcId, blockNode, formalParamsNode);
+    }
+    ;
 
-		// 形参结点没有，设置为空指针
-		ast_node * formalParamsNode = nullptr;
+FormalParamListOpt : /* 空 - 表示没有参数 */ {
+                        $$ = nullptr; // 或者返回一个空的 AST_OP_FUNC_FORMAL_PARAMS 节点
+                    }
+                 | FormalParamList {
+                        $$ = $1;
+                    }
+                 // 特殊处理 void foo(void) 的情况
+                 | T_VOID { // 假设你为 "void" 添加了 T_VOID token
+                        // 创建一个空的参数列表节点，表示参数是 void
+                        $$ = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS);
+                        // 你可能需要在 yylval.type 中为 T_VOID 设置正确的属性
+                        // ast_node* type_node = create_type_node($1);
+                        // $$->insert_son_node(type_node); // 可选：如果想表示 void 参数类型
+                    }
+                 ;
 
-		// 创建函数定义的节点，孩子有类型，函数名，语句块和形参(实际上无)
-		// create_func_def函数内会释放funcId中指向的标识符空间，切记，之后不要再释放，之前一定要是通过strdup函数或者malloc分配的空间
-		$$ = create_func_def(funcReturnType, funcId, blockNode, formalParamsNode);
-	}
-	;
+FormalParamList : FormalParamDecl {
+                    // 第一个参数
+                    $$ = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS, $1);
+                }
+              | FormalParamList T_COMMA FormalParamDecl {
+                    // 后续参数
+                    $$ = $1->insert_son_node($3);
+                }
+              ;
+
+// 单个形式参数声明，例如 "int a"
+FormalParamDecl : BasicType T_ID {
+                    // $1 是 BasicType (type_attr)
+                    // $2 是 T_ID (var_id_attr)
+                    // ast_node* type_node = create_type_node($1); // 创建类型节点
+                    // ast_node* id_node = ast_node::New($2);    // 创建标识符节点
+                    // free($2.id);
+                    // $$ = create_contain_node(ast_operator_type::AST_OP_VAR_DECL, type_node, id_node);
+                    // $$->type = type_node->type; // 将类型存到 VAR_DECL 节点上
+
+                    // 使用你现有的 createVarDeclNode(type_attr&, var_id_attr&)
+                    // 这个函数在 AST.cpp 中，但你需要确保它返回的是 AST_OP_VAR_DECL 节点
+                    // 并且在 create_func_def 或 IRGenerator 中能正确处理这种参数节点
+                    $$ = createVarDeclNode($1, $2); // createVarDeclNode 应该会 free($2.id)
+                }
+                ;
 
 // 语句块的文法Block ： T_L_BRACE BlockItemList? T_R_BRACE
 // 其中?代表可有可无，在bison中不支持，需要拆分成两个产生式
@@ -270,9 +313,12 @@ VarDef : T_ID {
 	}
 	;
 
-// 基本类型，目前只支持整型
+// 基本类型
 BasicType: T_INT {
 		$$ = $1;
+	}
+	| T_VOID {      // <--- 添加这个分支
+		$$ = $1;    // <--- 和它的动作
 	}
 	;
 

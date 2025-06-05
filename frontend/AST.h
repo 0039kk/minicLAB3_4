@@ -336,3 +336,24 @@ ast_node * create_var_decl_stmt_node(type_attr & type, var_id_attr & id);
 /// @return ast_node* 变量声明语句节点
 ///
 ast_node * add_var_decl_node(ast_node * stmt_node, var_id_attr & id);
+// In AST.h
+
+// ... (之前的声明，如 add_var_decl_node) ...
+
+///
+/// @brief 根据类型和ID创建变量声明节点 (AST_OP_VAR_DECL)
+/// @param type 变量的类型属性
+/// @param id 变量的名字和行号
+/// @return ast_node* 创建的变量声明节点 (AST_OP_VAR_DECL 类型)
+///
+ast_node * createVarDeclNode(type_attr & type, var_id_attr & id);
+
+///
+/// @brief 根据Type指针和ID创建变量声明节点 (AST_OP_VAR_DECL)
+/// @param type 变量的类型指针
+/// @param id 变量的名字和行号
+/// @return ast_node* 创建的变量声明节点 (AST_OP_VAR_DECL 类型)
+///
+ast_node * createVarDeclNode(Type * type, var_id_attr & id); // 声明另一个重载版本（如果它也被外部使用）
+
+// ... (文件末尾的其他内容，如果有的话) ...

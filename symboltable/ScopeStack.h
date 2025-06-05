@@ -31,7 +31,7 @@ public:
     /// @brief 向当前的作用域中加入变量
     /// @param value 变量
     ///
-    void insertValue(Value * value);
+    bool insertValue(Value * value);
 
     ///
     /// @brief 从当前的作用域中查找指定的变量名

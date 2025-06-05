@@ -32,15 +32,15 @@ ExitInstruction::ExitInstruction(Function * _func, Value * _result)
 /// @param str 转换后的字符串
 std::string ExitInstruction::toString() const {
     std::string result_str;
-    if (getOperandsNum() == 0) { // 确保 getOperandsNum 是 const
-        result_str = "ret void";
-    } else {
-        Value *returnValue = getOperand(0); // 确保 getOperand 是 const
+    if (getOperandsNum() == 0) { // void return
+        result_str = "exit"; // <--- 修改点：void 返回时只输出 "ret"
+    } else { // value return
+        Value *returnValue = getOperand(0);
         if (returnValue) {
-            // 确保 returnValue->getType() 和 returnValue->getName() 都是 const 方法
-            result_str = "exit " + returnValue->getIRName(); 
+            result_str = "exit " + returnValue->getIRName();
         } else {
-            result_str = "; <Error: ExitInstruction has null operand for return value>";
+            // 理论上，如果 getOperandsNum() > 0，operand(0) 不应为 null
+            result_str = "; <Error: ExitInstruction has non-zero operands but first operand is null>";
         }
     }
     return result_str;

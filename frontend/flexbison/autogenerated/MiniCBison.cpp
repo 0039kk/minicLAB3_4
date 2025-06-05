@@ -124,64 +124,68 @@ enum yysymbol_kind_t
   YYSYMBOL_T_DIGIT = 5,                    /* T_DIGIT  */
   YYSYMBOL_T_ID = 6,                       /* T_ID  */
   YYSYMBOL_T_INT = 7,                      /* T_INT  */
-  YYSYMBOL_T_RETURN = 8,                   /* T_RETURN  */
-  YYSYMBOL_T_SEMICOLON = 9,                /* T_SEMICOLON  */
-  YYSYMBOL_T_L_PAREN = 10,                 /* T_L_PAREN  */
-  YYSYMBOL_T_R_PAREN = 11,                 /* T_R_PAREN  */
-  YYSYMBOL_T_L_BRACE = 12,                 /* T_L_BRACE  */
-  YYSYMBOL_T_R_BRACE = 13,                 /* T_R_BRACE  */
-  YYSYMBOL_T_COMMA = 14,                   /* T_COMMA  */
-  YYSYMBOL_T_LT = 15,                      /* T_LT  */
-  YYSYMBOL_T_LE = 16,                      /* T_LE  */
-  YYSYMBOL_T_GT = 17,                      /* T_GT  */
-  YYSYMBOL_T_GE = 18,                      /* T_GE  */
-  YYSYMBOL_T_EQ = 19,                      /* T_EQ  */
-  YYSYMBOL_T_NE = 20,                      /* T_NE  */
-  YYSYMBOL_T_LAND = 21,                    /* T_LAND  */
-  YYSYMBOL_T_LOR = 22,                     /* T_LOR  */
-  YYSYMBOL_T_LNOT = 23,                    /* T_LNOT  */
-  YYSYMBOL_T_IF = 24,                      /* T_IF  */
-  YYSYMBOL_T_ELSE = 25,                    /* T_ELSE  */
-  YYSYMBOL_T_WHILE = 26,                   /* T_WHILE  */
-  YYSYMBOL_T_BREAK = 27,                   /* T_BREAK  */
-  YYSYMBOL_T_CONTINUE = 28,                /* T_CONTINUE  */
-  YYSYMBOL_T_ASSIGN = 29,                  /* T_ASSIGN  */
-  YYSYMBOL_T_SUB = 30,                     /* T_SUB  */
-  YYSYMBOL_T_ADD = 31,                     /* T_ADD  */
-  YYSYMBOL_T_MUL = 32,                     /* T_MUL  */
-  YYSYMBOL_T_DIV = 33,                     /* T_DIV  */
-  YYSYMBOL_T_MOD = 34,                     /* T_MOD  */
-  YYSYMBOL_YYACCEPT = 35,                  /* $accept  */
-  YYSYMBOL_CompileUnit = 36,               /* CompileUnit  */
-  YYSYMBOL_FuncDef = 37,                   /* FuncDef  */
-  YYSYMBOL_Block = 38,                     /* Block  */
-  YYSYMBOL_BlockItemList = 39,             /* BlockItemList  */
-  YYSYMBOL_BlockItem = 40,                 /* BlockItem  */
-  YYSYMBOL_VarDecl = 41,                   /* VarDecl  */
-  YYSYMBOL_VarDeclExpr = 42,               /* VarDeclExpr  */
-  YYSYMBOL_VarDef = 43,                    /* VarDef  */
-  YYSYMBOL_BasicType = 44,                 /* BasicType  */
-  YYSYMBOL_Statement = 45,                 /* Statement  */
-  YYSYMBOL_IfStmt = 46,                    /* IfStmt  */
-  YYSYMBOL_WhileStmt = 47,                 /* WhileStmt  */
-  YYSYMBOL_BreakStmt = 48,                 /* BreakStmt  */
-  YYSYMBOL_ContinueStmt = 49,              /* ContinueStmt  */
-  YYSYMBOL_Expr = 50,                      /* Expr  */
-  YYSYMBOL_AssignExpr = 51,                /* AssignExpr  */
-  YYSYMBOL_LOrExp = 52,                    /* LOrExp  */
-  YYSYMBOL_LAndExp = 53,                   /* LAndExp  */
-  YYSYMBOL_EqExp = 54,                     /* EqExp  */
-  YYSYMBOL_EqOp = 55,                      /* EqOp  */
-  YYSYMBOL_RelExp = 56,                    /* RelExp  */
-  YYSYMBOL_RelOp = 57,                     /* RelOp  */
-  YYSYMBOL_AddExp = 58,                    /* AddExp  */
-  YYSYMBOL_MulExp = 59,                    /* MulExp  */
-  YYSYMBOL_AddOp = 60,                     /* AddOp  */
-  YYSYMBOL_MulOp = 61,                     /* MulOp  */
-  YYSYMBOL_UnaryExp = 62,                  /* UnaryExp  */
-  YYSYMBOL_PrimaryExp = 63,                /* PrimaryExp  */
-  YYSYMBOL_RealParamList = 64,             /* RealParamList  */
-  YYSYMBOL_LVal = 65                       /* LVal  */
+  YYSYMBOL_T_VOID = 8,                     /* T_VOID  */
+  YYSYMBOL_T_RETURN = 9,                   /* T_RETURN  */
+  YYSYMBOL_T_SEMICOLON = 10,               /* T_SEMICOLON  */
+  YYSYMBOL_T_L_PAREN = 11,                 /* T_L_PAREN  */
+  YYSYMBOL_T_R_PAREN = 12,                 /* T_R_PAREN  */
+  YYSYMBOL_T_L_BRACE = 13,                 /* T_L_BRACE  */
+  YYSYMBOL_T_R_BRACE = 14,                 /* T_R_BRACE  */
+  YYSYMBOL_T_COMMA = 15,                   /* T_COMMA  */
+  YYSYMBOL_T_LT = 16,                      /* T_LT  */
+  YYSYMBOL_T_LE = 17,                      /* T_LE  */
+  YYSYMBOL_T_GT = 18,                      /* T_GT  */
+  YYSYMBOL_T_GE = 19,                      /* T_GE  */
+  YYSYMBOL_T_EQ = 20,                      /* T_EQ  */
+  YYSYMBOL_T_NE = 21,                      /* T_NE  */
+  YYSYMBOL_T_LAND = 22,                    /* T_LAND  */
+  YYSYMBOL_T_LOR = 23,                     /* T_LOR  */
+  YYSYMBOL_T_LNOT = 24,                    /* T_LNOT  */
+  YYSYMBOL_T_IF = 25,                      /* T_IF  */
+  YYSYMBOL_T_ELSE = 26,                    /* T_ELSE  */
+  YYSYMBOL_T_WHILE = 27,                   /* T_WHILE  */
+  YYSYMBOL_T_BREAK = 28,                   /* T_BREAK  */
+  YYSYMBOL_T_CONTINUE = 29,                /* T_CONTINUE  */
+  YYSYMBOL_T_ASSIGN = 30,                  /* T_ASSIGN  */
+  YYSYMBOL_T_SUB = 31,                     /* T_SUB  */
+  YYSYMBOL_T_ADD = 32,                     /* T_ADD  */
+  YYSYMBOL_T_MUL = 33,                     /* T_MUL  */
+  YYSYMBOL_T_DIV = 34,                     /* T_DIV  */
+  YYSYMBOL_T_MOD = 35,                     /* T_MOD  */
+  YYSYMBOL_YYACCEPT = 36,                  /* $accept  */
+  YYSYMBOL_CompileUnit = 37,               /* CompileUnit  */
+  YYSYMBOL_FuncDef = 38,                   /* FuncDef  */
+  YYSYMBOL_FormalParamListOpt = 39,        /* FormalParamListOpt  */
+  YYSYMBOL_FormalParamList = 40,           /* FormalParamList  */
+  YYSYMBOL_FormalParamDecl = 41,           /* FormalParamDecl  */
+  YYSYMBOL_Block = 42,                     /* Block  */
+  YYSYMBOL_BlockItemList = 43,             /* BlockItemList  */
+  YYSYMBOL_BlockItem = 44,                 /* BlockItem  */
+  YYSYMBOL_VarDecl = 45,                   /* VarDecl  */
+  YYSYMBOL_VarDeclExpr = 46,               /* VarDeclExpr  */
+  YYSYMBOL_VarDef = 47,                    /* VarDef  */
+  YYSYMBOL_BasicType = 48,                 /* BasicType  */
+  YYSYMBOL_Statement = 49,                 /* Statement  */
+  YYSYMBOL_IfStmt = 50,                    /* IfStmt  */
+  YYSYMBOL_WhileStmt = 51,                 /* WhileStmt  */
+  YYSYMBOL_BreakStmt = 52,                 /* BreakStmt  */
+  YYSYMBOL_ContinueStmt = 53,              /* ContinueStmt  */
+  YYSYMBOL_Expr = 54,                      /* Expr  */
+  YYSYMBOL_AssignExpr = 55,                /* AssignExpr  */
+  YYSYMBOL_LOrExp = 56,                    /* LOrExp  */
+  YYSYMBOL_LAndExp = 57,                   /* LAndExp  */
+  YYSYMBOL_EqExp = 58,                     /* EqExp  */
+  YYSYMBOL_EqOp = 59,                      /* EqOp  */
+  YYSYMBOL_RelExp = 60,                    /* RelExp  */
+  YYSYMBOL_RelOp = 61,                     /* RelOp  */
+  YYSYMBOL_AddExp = 62,                    /* AddExp  */
+  YYSYMBOL_MulExp = 63,                    /* MulExp  */
+  YYSYMBOL_AddOp = 64,                     /* AddOp  */
+  YYSYMBOL_MulOp = 65,                     /* MulOp  */
+  YYSYMBOL_UnaryExp = 66,                  /* UnaryExp  */
+  YYSYMBOL_PrimaryExp = 67,                /* PrimaryExp  */
+  YYSYMBOL_RealParamList = 68,             /* RealParamList  */
+  YYSYMBOL_LVal = 69                       /* LVal  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -507,21 +511,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  7
+#define YYFINAL  8
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   135
+#define YYLAST   138
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  35
+#define YYNTOKENS  36
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  31
+#define YYNNTS  34
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  68
+#define YYNRULES  75
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  109
+#define YYNSTATES  118
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   289
+#define YYMAXUTOK   290
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -563,20 +567,22 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   113,   113,   121,   127,   132,   139,   162,   168,   179,
-     184,   193,   197,   208,   214,   233,   256,   262,   274,   284,
-     291,   292,   293,   294,   295,   296,   299,   306,   311,   317,
-     325,   331,   342,   347,   351,   355,   358,   362,   365,   369,
-     372,   376,   377,   381,   384,   388,   389,   390,   391,   399,
-     402,   405,   408,   414,   417,   422,   425,   428,   435,   441,
-     445,   449,   465,   484,   488,   494,   506,   510,   517
+       0,   115,   115,   123,   129,   134,   144,   159,   162,   166,
+     175,   179,   186,   205,   211,   222,   227,   236,   240,   251,
+     257,   276,   299,   305,   317,   320,   330,   337,   338,   339,
+     340,   341,   342,   345,   352,   357,   363,   371,   377,   388,
+     393,   397,   401,   404,   408,   411,   415,   418,   422,   423,
+     427,   430,   434,   435,   436,   437,   445,   448,   451,   454,
+     460,   463,   468,   471,   474,   481,   487,   491,   495,   511,
+     530,   534,   540,   552,   556,   563
 };
 #endif
 
@@ -593,13 +599,14 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "UNARY_MINUS", "T_IFX",
-  "T_DIGIT", "T_ID", "T_INT", "T_RETURN", "T_SEMICOLON", "T_L_PAREN",
-  "T_R_PAREN", "T_L_BRACE", "T_R_BRACE", "T_COMMA", "T_LT", "T_LE", "T_GT",
-  "T_GE", "T_EQ", "T_NE", "T_LAND", "T_LOR", "T_LNOT", "T_IF", "T_ELSE",
-  "T_WHILE", "T_BREAK", "T_CONTINUE", "T_ASSIGN", "T_SUB", "T_ADD",
-  "T_MUL", "T_DIV", "T_MOD", "$accept", "CompileUnit", "FuncDef", "Block",
-  "BlockItemList", "BlockItem", "VarDecl", "VarDeclExpr", "VarDef",
-  "BasicType", "Statement", "IfStmt", "WhileStmt", "BreakStmt",
+  "T_DIGIT", "T_ID", "T_INT", "T_VOID", "T_RETURN", "T_SEMICOLON",
+  "T_L_PAREN", "T_R_PAREN", "T_L_BRACE", "T_R_BRACE", "T_COMMA", "T_LT",
+  "T_LE", "T_GT", "T_GE", "T_EQ", "T_NE", "T_LAND", "T_LOR", "T_LNOT",
+  "T_IF", "T_ELSE", "T_WHILE", "T_BREAK", "T_CONTINUE", "T_ASSIGN",
+  "T_SUB", "T_ADD", "T_MUL", "T_DIV", "T_MOD", "$accept", "CompileUnit",
+  "FuncDef", "FormalParamListOpt", "FormalParamList", "FormalParamDecl",
+  "Block", "BlockItemList", "BlockItem", "VarDecl", "VarDeclExpr",
+  "VarDef", "BasicType", "Statement", "IfStmt", "WhileStmt", "BreakStmt",
   "ContinueStmt", "Expr", "AssignExpr", "LOrExp", "LAndExp", "EqExp",
   "EqOp", "RelExp", "RelOp", "AddExp", "MulExp", "AddOp", "MulOp",
   "UnaryExp", "PrimaryExp", "RealParamList", "LVal", YY_NULLPTR
@@ -612,12 +619,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-76)
+#define YYPACT_NINF (-59)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-1)
+#define YYTABLE_NINF (-26)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -626,17 +633,18 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      10,   -76,    11,   -76,   -76,    -1,     6,   -76,   -76,   -76,
-     -76,    17,    -5,   -76,    -3,   -76,    20,   105,    38,   -76,
-      25,   105,   105,   105,   -76,   -76,    35,    43,    40,    23,
-      41,    21,   -76,   -76,    32,    39,   -76,     4,    57,   -76,
-     -76,   -76,   105,   105,   -76,   -76,   105,   -76,   -76,   -76,
-     -76,   105,   -76,   -76,   105,   -76,   -76,   -76,   105,   105,
-     105,   -76,   -76,    60,    76,    81,    83,   -76,    70,   -76,
-     -76,    17,   -76,   -76,   -76,   -76,   -76,    86,   -76,   -76,
-       5,   -76,    43,    40,    23,    41,    21,   -76,   -76,    90,
-     105,   105,   -76,   -76,   -76,   -76,   -76,   -76,   105,   -76,
-      93,    97,   -76,    79,    79,    87,   -76,    79,   -76
+      16,   -59,   -59,    69,   -59,   -59,    -5,     3,   -59,   -59,
+     -59,   -59,    27,   -10,   -59,     5,   -59,    49,    10,    32,
+      30,    50,   -59,    68,   -59,    64,    10,    10,    10,   -59,
+     -59,    55,    57,    -7,   106,    40,    26,   -59,   -59,    52,
+      67,    16,   -59,     6,    85,   -59,   -59,   -59,    10,    10,
+     -59,   -59,    10,   -59,   -59,   -59,   -59,    10,   -59,   -59,
+      10,   -59,   -59,   -59,    10,    10,    39,   -59,   -59,   -59,
+     -59,     7,   -59,    57,    -7,   106,    40,    26,   -59,   -59,
+      10,   -59,   -59,    81,    87,    92,    96,   -59,    80,   -59,
+     -59,    27,   -59,   -59,   -59,   -59,   -59,   100,   -59,    10,
+     102,    10,    10,   -59,   -59,   -59,   -59,   -59,   -59,   -59,
+     101,   104,    90,    90,    94,   -59,    90,   -59
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -644,35 +652,36 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,    18,     0,     2,     3,     0,     0,     1,     4,     5,
-      13,     0,    16,    14,    16,    15,     0,     0,     0,    64,
-      68,     0,     0,     0,    17,    32,    34,    36,    38,    40,
-      44,    50,    52,    58,    65,     0,     6,     0,     0,    60,
-      65,    59,     0,     0,    41,    42,     0,    45,    46,    47,
-      48,     0,    54,    53,     0,    55,    56,    57,     0,     0,
-       0,    26,     7,     0,     0,     0,     0,    20,     0,     9,
-      12,     0,    11,    21,    22,    23,    24,     0,    61,    66,
-       0,    63,    35,    37,    39,    43,    49,    51,    33,     0,
-       0,     0,    30,    31,     8,    10,    25,    62,     0,    19,
-       0,     0,    67,     0,     0,    27,    29,     0,    28
+       0,    24,    25,     0,     2,     3,     0,     0,     1,     4,
+       5,    19,     0,    22,    20,    22,    21,     7,     0,     9,
+       0,     8,    10,     0,    71,    75,     0,     0,     0,    23,
+      39,    41,    43,    45,    47,    51,    57,    59,    65,    72,
+       0,     0,    12,     0,     0,    67,    72,    66,     0,     0,
+      48,    49,     0,    52,    53,    54,    55,     0,    61,    60,
+       0,    62,    63,    64,     0,     0,     0,     6,    11,    68,
+      73,     0,    70,    42,    44,    46,    50,    56,    58,    40,
+       0,    33,    13,     0,     0,     0,     0,    27,     0,    15,
+      18,     0,    17,    28,    29,    30,    31,     0,    69,     0,
+       0,     0,     0,    37,    38,    14,    16,    32,    74,    26,
+       0,     0,     0,     0,    34,    36,     0,    35
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -76,   -76,    99,    95,   -76,    46,    56,   -76,   106,   -32,
-     -75,   -76,   -76,   -76,   -76,   -17,    59,   -76,    74,    77,
-     -76,    73,   -76,    71,    67,   -76,   -76,   -16,   -76,   -76,
-     -21
+     -59,   -59,   123,   -59,   -59,    86,    88,   -59,    41,    29,
+     -59,   118,   -15,   -58,   -59,   -59,   -59,   -59,   -18,    66,
+     -59,    84,    89,   -59,    82,   -59,    76,    75,   -59,   -59,
+     -24,   -59,   -59,   -21
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     3,    67,    68,    69,    70,     5,    13,     6,
-      72,    73,    74,    75,    76,    77,    25,    26,    27,    28,
-      46,    29,    51,    30,    31,    54,    58,    32,    33,    80,
-      34
+       0,     3,     4,    20,    21,    22,    87,    88,    89,    90,
+       6,    14,     7,    92,    93,    94,    95,    96,    97,    30,
+      31,    32,    33,    52,    34,    57,    35,    36,    60,    64,
+      37,    38,    71,    39
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -680,79 +689,82 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      24,    40,    40,    71,    38,    16,    39,    41,    10,    19,
-      20,     7,    12,    11,    21,    78,    97,     1,     1,    98,
-      79,    40,    40,    14,    17,    40,    17,    22,   105,   106,
-      40,    18,   108,    40,    23,    37,    71,    40,    47,    48,
-      49,    50,    87,    89,    19,    20,     1,    60,    61,    21,
-      35,    35,    62,    55,    56,    57,     4,    42,     9,    44,
-      45,    59,    22,    63,    43,    64,    65,    66,    81,    23,
-      90,    52,    53,   100,   101,    19,    20,     1,    60,    61,
-      21,   102,    35,    94,    19,    20,    91,    60,    61,    21,
-      92,    35,    93,    22,    63,    96,    64,    65,    66,    99,
-      23,     8,    22,    63,   103,    64,    65,    66,   104,    23,
-      19,    20,   107,    36,    95,    21,    82,    15,    88,    84,
-      83,    86,    85,     0,     0,     0,     0,     0,    22,     0,
-       0,     0,     0,     0,     0,    23
+      29,    17,    23,    45,    47,    11,    46,    46,    44,    13,
+      12,    24,    25,    50,    51,    24,    25,    26,    69,    98,
+      18,    26,    99,     1,     2,    70,    23,    46,    46,     5,
+      27,    46,    10,    15,    27,    18,    46,    28,   -25,    46,
+      78,    28,    40,    46,    24,    25,     1,     2,    80,    81,
+      26,    91,    66,    82,   114,   115,     1,    19,   117,    61,
+      62,    63,   100,    27,    83,    41,    84,    85,    86,     8,
+      28,    58,    59,    91,    42,    43,     1,     2,    48,    49,
+      66,   108,    65,   110,   111,    24,    25,     1,     2,    80,
+      81,    26,   101,    66,   105,    24,    25,    72,   102,    80,
+      81,    26,   103,    66,    27,    83,   104,    84,    85,    86,
+     107,    28,   109,   112,    27,    83,   113,    84,    85,    86,
+     116,    28,    53,    54,    55,    56,     9,    68,    67,   106,
+      16,    79,    73,    76,    75,    77,     0,     0,    74
 };
 
 static const yytype_int8 yycheck[] =
 {
-      17,    22,    23,    35,    21,    10,    22,    23,     9,     5,
-       6,     0,     6,    14,    10,    11,    11,     7,     7,    14,
-      37,    42,    43,     6,    29,    46,    29,    23,   103,   104,
-      51,    11,   107,    54,    30,    10,    68,    58,    15,    16,
-      17,    18,    58,    60,     5,     6,     7,     8,     9,    10,
-      12,    12,    13,    32,    33,    34,     0,    22,     2,    19,
-      20,    29,    23,    24,    21,    26,    27,    28,    11,    30,
-      10,    30,    31,    90,    91,     5,     6,     7,     8,     9,
-      10,    98,    12,    13,     5,     6,    10,     8,     9,    10,
-       9,    12,     9,    23,    24,     9,    26,    27,    28,     9,
-      30,     2,    23,    24,    11,    26,    27,    28,    11,    30,
-       5,     6,    25,    18,    68,    10,    42,    11,    59,    46,
-      43,    54,    51,    -1,    -1,    -1,    -1,    -1,    23,    -1,
-      -1,    -1,    -1,    -1,    -1,    30
+      18,    11,    17,    27,    28,    10,    27,    28,    26,     6,
+      15,     5,     6,    20,    21,     5,     6,    11,    12,    12,
+      30,    11,    15,     7,     8,    43,    41,    48,    49,     0,
+      24,    52,     3,     6,    24,    30,    57,    31,     6,    60,
+      64,    31,    12,    64,     5,     6,     7,     8,     9,    10,
+      11,    66,    13,    14,   112,   113,     7,     8,   116,    33,
+      34,    35,    80,    24,    25,    15,    27,    28,    29,     0,
+      31,    31,    32,    88,     6,    11,     7,     8,    23,    22,
+      13,    99,    30,   101,   102,     5,     6,     7,     8,     9,
+      10,    11,    11,    13,    14,     5,     6,    12,    11,     9,
+      10,    11,    10,    13,    24,    25,    10,    27,    28,    29,
+      10,    31,    10,    12,    24,    25,    12,    27,    28,    29,
+      26,    31,    16,    17,    18,    19,     3,    41,    40,    88,
+      12,    65,    48,    57,    52,    60,    -1,    -1,    49
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     7,    36,    37,    41,    42,    44,     0,    37,    41,
-       9,    14,     6,    43,     6,    43,    10,    29,    11,     5,
-       6,    10,    23,    30,    50,    51,    52,    53,    54,    56,
-      58,    59,    62,    63,    65,    12,    38,    10,    50,    62,
-      65,    62,    22,    21,    19,    20,    55,    15,    16,    17,
-      18,    57,    30,    31,    60,    32,    33,    34,    61,    29,
-       8,     9,    13,    24,    26,    27,    28,    38,    39,    40,
-      41,    44,    45,    46,    47,    48,    49,    50,    11,    50,
-      64,    11,    53,    54,    56,    58,    59,    62,    51,    50,
-      10,    10,     9,     9,    13,    40,     9,    11,    14,     9,
-      50,    50,    50,    11,    11,    45,    45,    25,    45
+       0,     7,     8,    37,    38,    45,    46,    48,     0,    38,
+      45,    10,    15,     6,    47,     6,    47,    11,    30,     8,
+      39,    40,    41,    48,     5,     6,    11,    24,    31,    54,
+      55,    56,    57,    58,    60,    62,    63,    66,    67,    69,
+      12,    15,     6,    11,    54,    66,    69,    66,    23,    22,
+      20,    21,    59,    16,    17,    18,    19,    61,    31,    32,
+      64,    33,    34,    35,    65,    30,    13,    42,    41,    12,
+      54,    68,    12,    57,    58,    60,    62,    63,    66,    55,
+       9,    10,    14,    25,    27,    28,    29,    42,    43,    44,
+      45,    48,    49,    50,    51,    52,    53,    54,    12,    15,
+      54,    11,    11,    10,    10,    14,    44,    10,    54,    10,
+      54,    54,    12,    12,    49,    49,    26,    49
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    35,    36,    36,    36,    36,    37,    38,    38,    39,
-      39,    40,    40,    41,    42,    42,    43,    43,    44,    45,
-      45,    45,    45,    45,    45,    45,    45,    46,    46,    47,
-      48,    49,    50,    51,    51,    52,    52,    53,    53,    54,
-      54,    55,    55,    56,    56,    57,    57,    57,    57,    58,
-      58,    59,    59,    60,    60,    61,    61,    61,    62,    62,
-      62,    62,    62,    63,    63,    63,    64,    64,    65
+       0,    36,    37,    37,    37,    37,    38,    39,    39,    39,
+      40,    40,    41,    42,    42,    43,    43,    44,    44,    45,
+      46,    46,    47,    47,    48,    48,    49,    49,    49,    49,
+      49,    49,    49,    49,    50,    50,    51,    52,    53,    54,
+      55,    55,    56,    56,    57,    57,    58,    58,    59,    59,
+      60,    60,    61,    61,    61,    61,    62,    62,    63,    63,
+      64,    64,    65,    65,    65,    66,    66,    66,    66,    66,
+      67,    67,    67,    68,    68,    69
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     1,     2,     2,     5,     2,     3,     1,
-       2,     1,     1,     2,     2,     3,     1,     3,     1,     3,
-       1,     1,     1,     1,     1,     2,     1,     5,     7,     5,
-       2,     2,     1,     3,     1,     3,     1,     3,     1,     3,
-       1,     1,     1,     3,     1,     1,     1,     1,     1,     3,
-       1,     3,     1,     1,     1,     1,     1,     1,     1,     2,
-       2,     3,     4,     3,     1,     1,     1,     3,     1
+       0,     2,     1,     1,     2,     2,     6,     0,     1,     1,
+       1,     3,     2,     2,     3,     1,     2,     1,     1,     2,
+       2,     3,     1,     3,     1,     1,     3,     1,     1,     1,
+       1,     1,     2,     1,     5,     7,     5,     2,     2,     1,
+       3,     1,     3,     1,     3,     1,     3,     1,     1,     1,
+       3,     1,     1,     1,     1,     1,     3,     1,     3,     1,
+       1,     1,     1,     1,     1,     1,     2,     2,     3,     4,
+       3,     1,     1,     1,     3,     1
 };
 
 
@@ -1216,7 +1228,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* CompileUnit: FuncDef  */
-#line 113 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+#line 115 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                       {
 
 		// 创建一个编译单元的节点AST_OP_COMPILE_UNIT
@@ -1225,131 +1237,191 @@ yyreduce:
 		// 设置到全局变量中
 		ast_root = (yyval.node);
 	}
-#line 1229 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1241 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
   case 3: /* CompileUnit: VarDecl  */
-#line 121 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+#line 123 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                   {
 
 		// 创建一个编译单元的节点AST_OP_COMPILE_UNIT
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_COMPILE_UNIT, (yyvsp[0].node));
 		ast_root = (yyval.node);
 	}
-#line 1240 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1252 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
   case 4: /* CompileUnit: CompileUnit FuncDef  */
-#line 127 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+#line 129 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                               {
 
 		// 把函数定义的节点作为编译单元的孩子
 		(yyval.node) = (yyvsp[-1].node)->insert_son_node((yyvsp[0].node));
 	}
-#line 1250 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1262 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
   case 5: /* CompileUnit: CompileUnit VarDecl  */
-#line 132 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+#line 134 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                               {
 		// 把变量定义的节点作为编译单元的孩子
 		(yyval.node) = (yyvsp[-1].node)->insert_son_node((yyvsp[0].node));
 	}
-#line 1259 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1271 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 6: /* FuncDef: BasicType T_ID T_L_PAREN T_R_PAREN Block  */
-#line 139 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 6: /* FuncDef: BasicType T_ID T_L_PAREN FormalParamListOpt T_R_PAREN Block  */
+#line 144 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                                                                       {
+        type_attr funcReturnType = (yyvsp[-5].type);
+        var_id_attr funcId = (yyvsp[-4].var_id);
+        ast_node * formalParamsNode = (yyvsp[-2].node); // $4 是 FormalParamListOpt 的结果
+        ast_node * blockNode = (yyvsp[0].node);
+
+        // 如果 formalParamsNode 是 nullptr (因为参数列表是空的或只有 void)，
+        // create_func_def 应该能处理 nullptr，或者你在这里创建一个空的 AST_OP_FUNC_FORMAL_PARAMS 节点
+        if (!formalParamsNode) {
+            formalParamsNode = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS);
+        }
+        (yyval.node) = create_func_def(funcReturnType, funcId, blockNode, formalParamsNode);
+    }
+#line 1289 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 7: /* FormalParamListOpt: %empty  */
+#line 159 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                                     {
-
-		// 函数返回类型
-		type_attr funcReturnType = (yyvsp[-4].type);
-
-		// 函数名
-		var_id_attr funcId = (yyvsp[-3].var_id);
-
-		// 函数体节点即Block，即$5
-		ast_node * blockNode = (yyvsp[0].node);
-
-		// 形参结点没有，设置为空指针
-		ast_node * formalParamsNode = nullptr;
-
-		// 创建函数定义的节点，孩子有类型，函数名，语句块和形参(实际上无)
-		// create_func_def函数内会释放funcId中指向的标识符空间，切记，之后不要再释放，之前一定要是通过strdup函数或者malloc分配的空间
-		(yyval.node) = create_func_def(funcReturnType, funcId, blockNode, formalParamsNode);
-	}
-#line 1282 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+                        (yyval.node) = nullptr; // 或者返回一个空的 AST_OP_FUNC_FORMAL_PARAMS 节点
+                    }
+#line 1297 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 7: /* Block: T_L_BRACE T_R_BRACE  */
+  case 8: /* FormalParamListOpt: FormalParamList  */
 #line 162 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                                   {
+                        (yyval.node) = (yyvsp[0].node);
+                    }
+#line 1305 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 9: /* FormalParamListOpt: T_VOID  */
+#line 166 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                          { // 假设你为 "void" 添加了 T_VOID token
+                        // 创建一个空的参数列表节点，表示参数是 void
+                        (yyval.node) = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS);
+                        // 你可能需要在 yylval.type 中为 T_VOID 设置正确的属性
+                        // ast_node* type_node = create_type_node($1);
+                        // $$->insert_son_node(type_node); // 可选：如果想表示 void 参数类型
+                    }
+#line 1317 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 10: /* FormalParamList: FormalParamDecl  */
+#line 175 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                                  {
+                    // 第一个参数
+                    (yyval.node) = create_contain_node(ast_operator_type::AST_OP_FUNC_FORMAL_PARAMS, (yyvsp[0].node));
+                }
+#line 1326 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 11: /* FormalParamList: FormalParamList T_COMMA FormalParamDecl  */
+#line 179 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                                                        {
+                    // 后续参数
+                    (yyval.node) = (yyvsp[-2].node)->insert_son_node((yyvsp[0].node));
+                }
+#line 1335 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 12: /* FormalParamDecl: BasicType T_ID  */
+#line 186 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                                 {
+                    // $1 是 BasicType (type_attr)
+                    // $2 是 T_ID (var_id_attr)
+                    // ast_node* type_node = create_type_node($1); // 创建类型节点
+                    // ast_node* id_node = ast_node::New($2);    // 创建标识符节点
+                    // free($2.id);
+                    // $$ = create_contain_node(ast_operator_type::AST_OP_VAR_DECL, type_node, id_node);
+                    // $$->type = type_node->type; // 将类型存到 VAR_DECL 节点上
+
+                    // 使用你现有的 createVarDeclNode(type_attr&, var_id_attr&)
+                    // 这个函数在 AST.cpp 中，但你需要确保它返回的是 AST_OP_VAR_DECL 节点
+                    // 并且在 create_func_def 或 IRGenerator 中能正确处理这种参数节点
+                    (yyval.node) = createVarDeclNode((yyvsp[-1].type), (yyvsp[0].var_id)); // createVarDeclNode 应该会 free($2.id)
+                }
+#line 1354 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 13: /* Block: T_L_BRACE T_R_BRACE  */
+#line 205 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                             {
 		// 语句块没有语句
 
 		// 为了方便创建一个空的Block节点
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_BLOCK);
 	}
-#line 1293 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1365 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 8: /* Block: T_L_BRACE BlockItemList T_R_BRACE  */
-#line 168 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 14: /* Block: T_L_BRACE BlockItemList T_R_BRACE  */
+#line 211 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                             {
 		// 语句块含有语句
 
 		// BlockItemList归约时内部创建Block节点，并把语句加入，这里不创建Block节点
 		(yyval.node) = (yyvsp[-1].node);
 	}
-#line 1304 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1376 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 9: /* BlockItemList: BlockItem  */
-#line 179 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 15: /* BlockItemList: BlockItem  */
+#line 222 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                           {
 		// 第一个左侧的孩子节点归约成Block节点，后续语句可持续作为孩子追加到Block节点中
 		// 创建一个AST_OP_BLOCK类型的中间节点，孩子为Statement($1)
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_BLOCK, (yyvsp[0].node));
 	}
-#line 1314 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1386 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 10: /* BlockItemList: BlockItemList BlockItem  */
-#line 184 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 16: /* BlockItemList: BlockItemList BlockItem  */
+#line 227 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                   {
 		// 把BlockItem归约的节点加入到BlockItemList的节点中
 		(yyval.node) = (yyvsp[-1].node)->insert_son_node((yyvsp[0].node));
 	}
-#line 1323 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1395 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 11: /* BlockItem: Statement  */
-#line 193 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 17: /* BlockItem: Statement  */
+#line 236 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                        {
 		// 语句节点传递给归约后的节点上，综合属性
 		(yyval.node) = (yyvsp[0].node);
 	}
-#line 1332 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1404 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 12: /* BlockItem: VarDecl  */
-#line 197 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 18: /* BlockItem: VarDecl  */
+#line 240 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                   {
 		// 变量声明节点传递给归约后的节点上，综合属性
 		(yyval.node) = (yyvsp[0].node);
 	}
-#line 1341 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1413 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 13: /* VarDecl: VarDeclExpr T_SEMICOLON  */
-#line 208 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 19: /* VarDecl: VarDeclExpr T_SEMICOLON  */
+#line 251 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                   {
 		(yyval.node) = (yyvsp[-1].node);
 	}
-#line 1349 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1421 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 14: /* VarDeclExpr: BasicType VarDef  */
-#line 214 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 20: /* VarDeclExpr: BasicType VarDef  */
+#line 257 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                               {
         // ... 动作代码，为单个 BasicType VarDef 创建声明节点 ...
         // 例如，创建一个 AST_OP_VAR_DECL 节点，然后包装在一个临时的 AST_OP_DECL_STMT 中
@@ -1369,11 +1441,11 @@ yyreduce:
         // 对于第一个 VarDef，我们创建一个只包含一个 VAR_DECL 的 DECL_STMT。
         (yyval.node) = create_var_decl_stmt_node(single_var_decl_node);
     }
-#line 1373 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1445 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 15: /* VarDeclExpr: VarDeclExpr T_COMMA VarDef  */
-#line 233 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 21: /* VarDeclExpr: VarDeclExpr T_COMMA VarDef  */
+#line 276 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                  { // <--- 这里之前可能是 VarDefList，应为 VarDef
         // $1 是前一个 VarDeclExpr (它是一个 AST_OP_DECL_STMT 节点)
         // $3 是新的 VarDef 节点
@@ -1393,22 +1465,22 @@ yyreduce:
         // 将新的 single_var_decl_node 添加到 $1 (AST_OP_DECL_STMT) 的子节点列表中
         (yyval.node) = (yyvsp[-2].node)->insert_son_node(new_single_var_decl_node);
     }
-#line 1397 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1469 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 16: /* VarDef: T_ID  */
-#line 256 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 22: /* VarDef: T_ID  */
+#line 299 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
               {
 		// 变量ID，无初始化
         // 使用现有的 ast_node::New(var_id_attr) 创建叶子节点
 		(yyval.node) = ast_node::New((yyvsp[0].var_id)); 
 		free((yyvsp[0].var_id).id);
 	}
-#line 1408 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1480 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 17: /* VarDef: T_ID T_ASSIGN Expr  */
-#line 262 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 23: /* VarDef: T_ID T_ASSIGN Expr  */
+#line 305 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                              { // 变量ID，带初始化
         // $1 是 T_ID (var_id_attr)
         // $3 是 Expr (ast_node*)
@@ -1418,332 +1490,340 @@ yyreduce:
         // 创建一个 AST_OP_INIT 节点，其子节点是 id_node 和 $3 (初始化表达式)
         (yyval.node) = create_contain_node(ast_operator_type::AST_OP_INIT, id_node, (yyvsp[0].node), nullptr);
 	}
-#line 1422 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1494 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 18: /* BasicType: T_INT  */
-#line 274 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 24: /* BasicType: T_INT  */
+#line 317 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                  {
 		(yyval.type) = (yyvsp[0].type);
 	}
-#line 1430 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1502 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 19: /* Statement: T_RETURN Expr T_SEMICOLON  */
-#line 284 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 25: /* BasicType: T_VOID  */
+#line 320 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                 {      // <--- 添加这个分支
+		(yyval.type) = (yyvsp[0].type);    // <--- 和它的动作
+	}
+#line 1510 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 26: /* Statement: T_RETURN Expr T_SEMICOLON  */
+#line 330 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                       {
         // 假设 create_unary_op_node(op, child)
         (yyval.node) = create_contain_node(ast_operator_type::AST_OP_RETURN, (yyvsp[-1].node));
     }
-#line 1439 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1519 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 20: /* Statement: Block  */
-#line 291 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 27: /* Statement: Block  */
+#line 337 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
             { (yyval.node) = (yyvsp[0].node); }
-#line 1445 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1525 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 21: /* Statement: IfStmt  */
-#line 292 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 28: /* Statement: IfStmt  */
+#line 338 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                 { (yyval.node) = (yyvsp[0].node); }
-#line 1451 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1531 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 22: /* Statement: WhileStmt  */
-#line 293 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 29: /* Statement: WhileStmt  */
+#line 339 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                 { (yyval.node) = (yyvsp[0].node); }
-#line 1457 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1537 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 23: /* Statement: BreakStmt  */
-#line 294 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 30: /* Statement: BreakStmt  */
+#line 340 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                 { (yyval.node) = (yyvsp[0].node); }
-#line 1463 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1543 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 24: /* Statement: ContinueStmt  */
-#line 295 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 31: /* Statement: ContinueStmt  */
+#line 341 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                    { (yyval.node) = (yyvsp[0].node); }
-#line 1469 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1549 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 25: /* Statement: Expr T_SEMICOLON  */
-#line 296 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 32: /* Statement: Expr T_SEMICOLON  */
+#line 342 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                        {          // 表达式语句 (可能包含赋值表达式)
         (yyval.node) = (yyvsp[-1].node);
     }
-#line 1477 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1557 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 26: /* Statement: T_SEMICOLON  */
-#line 299 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 33: /* Statement: T_SEMICOLON  */
+#line 345 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                   {               // 空语句
         // 用一个特殊的节点表示空语句，或者直接返回 nullptr
         // $$ = create_simple_stmt_node(ast_operator_type::AST_OP_EMPTY_STMT, yylineno);
         (yyval.node) = nullptr; // 在 BlockItemList 中处理 nullptr
     }
-#line 1487 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1567 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 27: /* IfStmt: T_IF T_L_PAREN Expr T_R_PAREN Statement  */
-#line 306 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 34: /* IfStmt: T_IF T_L_PAREN Expr T_R_PAREN Statement  */
+#line 352 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                                               {
         (yyval.node) = create_contain_node(ast_operator_type::AST_OP_IF, (yyvsp[-2].node), (yyvsp[0].node), nullptr);
         // 手动设置行号，如果 create_contain_node 不会自动从第一个有效子节点获取的话
         if ((yyval.node) && (yyvsp[-2].node)) (yyval.node)->line_no = (yyvsp[-2].node)->line_no; // 以条件表达式的行号为准
     }
-#line 1497 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1577 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 28: /* IfStmt: T_IF T_L_PAREN Expr T_R_PAREN Statement T_ELSE Statement  */
-#line 311 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 35: /* IfStmt: T_IF T_L_PAREN Expr T_R_PAREN Statement T_ELSE Statement  */
+#line 357 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                                                {
         (yyval.node) = create_contain_node(ast_operator_type::AST_OP_IF, (yyvsp[-4].node), (yyvsp[-2].node), (yyvsp[0].node));
         if ((yyval.node) && (yyvsp[-4].node)) (yyval.node)->line_no = (yyvsp[-4].node)->line_no; // 以条件表达式的行号为准
     }
-#line 1506 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1586 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 29: /* WhileStmt: T_WHILE T_L_PAREN Expr T_R_PAREN Statement  */
-#line 317 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 36: /* WhileStmt: T_WHILE T_L_PAREN Expr T_R_PAREN Statement  */
+#line 363 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                                        {
         // 假设 create_while_stmt_node(cond_expr, body_stmt)
         // $$ = create_while_stmt_node($3, $5);
         // 使用通用创建函数
         (yyval.node) = create_contain_node(ast_operator_type::AST_OP_WHILE, (yyvsp[-2].node), (yyvsp[0].node)); // $3是条件, $5是循环体
     }
-#line 1517 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1597 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 30: /* BreakStmt: T_BREAK T_SEMICOLON  */
-#line 325 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 37: /* BreakStmt: T_BREAK T_SEMICOLON  */
+#line 371 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                 {
         (yyval.node) = create_contain_node(ast_operator_type::AST_OP_BREAK);
         if ((yyval.node)) (yyval.node)->line_no = yylineno; // 确保 $$ 非空后设置行号
     }
-#line 1526 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1606 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 31: /* ContinueStmt: T_CONTINUE T_SEMICOLON  */
-#line 331 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 38: /* ContinueStmt: T_CONTINUE T_SEMICOLON  */
+#line 377 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                       {
         (yyval.node) = create_contain_node(ast_operator_type::AST_OP_CONTINUE);
         if ((yyval.node)) (yyval.node)->line_no = yylineno; // 确保 $$ 非空后设置行号
     }
-#line 1535 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1615 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 32: /* Expr: AssignExpr  */
-#line 342 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 39: /* Expr: AssignExpr  */
+#line 388 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                      { (yyval.node) = (yyvsp[0].node); }
-#line 1541 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1621 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 33: /* AssignExpr: LVal T_ASSIGN AssignExpr  */
-#line 347 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 40: /* AssignExpr: LVal T_ASSIGN AssignExpr  */
+#line 393 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                       { // 右结合: a = b = c  解析为 a = (b = c)
                // 假设 create_binary_op_node(op, left, right)
                (yyval.node) = create_contain_node(ast_operator_type::AST_OP_ASSIGN, (yyvsp[-2].node), (yyvsp[0].node));
            }
-#line 1550 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 34: /* AssignExpr: LOrExp  */
-#line 351 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                    { (yyval.node) = (yyvsp[0].node); }
-#line 1556 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 35: /* LOrExp: LOrExp T_LOR LAndExp  */
-#line 355 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                               {
-            (yyval.node) = create_contain_node(ast_operator_type::AST_OP_LOR, (yyvsp[-2].node), (yyvsp[0].node));
-        }
-#line 1564 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 36: /* LOrExp: LAndExp  */
-#line 358 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                  { (yyval.node) = (yyvsp[0].node); }
-#line 1570 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 37: /* LAndExp: LAndExp T_LAND EqExp  */
-#line 362 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                               { // 注意这里下一级是 EqExp (相等表达式)
-            (yyval.node) = create_contain_node(ast_operator_type::AST_OP_LAND, (yyvsp[-2].node), (yyvsp[0].node));
-        }
-#line 1578 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 38: /* LAndExp: EqExp  */
-#line 365 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                { (yyval.node) = (yyvsp[0].node); }
-#line 1584 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 39: /* EqExp: EqExp EqOp RelExp  */
-#line 369 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                            { // 注意这里下一级是 RelExp (关系表达式)
-            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
-        }
-#line 1592 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 40: /* EqExp: RelExp  */
-#line 372 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                 { (yyval.node) = (yyvsp[0].node); }
-#line 1598 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 41: /* EqOp: T_EQ  */
-#line 376 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                { (yyval.op_class) = (int)ast_operator_type::AST_OP_EQ; }
-#line 1604 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 42: /* EqOp: T_NE  */
-#line 377 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                { (yyval.op_class) = (int)ast_operator_type::AST_OP_NE; }
-#line 1610 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 43: /* RelExp: RelExp RelOp AddExp  */
-#line 381 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                              { // 注意这里下一级是 AddExp (加法表达式)
-            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
-        }
-#line 1618 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 44: /* RelExp: AddExp  */
-#line 384 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                 { (yyval.node) = (yyvsp[0].node); }
-#line 1624 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 45: /* RelOp: T_LT  */
-#line 388 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                { (yyval.op_class) = (int)ast_operator_type::AST_OP_LT; }
 #line 1630 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 46: /* RelOp: T_LE  */
-#line 389 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                { (yyval.op_class) = (int)ast_operator_type::AST_OP_LE; }
+  case 41: /* AssignExpr: LOrExp  */
+#line 397 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                    { (yyval.node) = (yyvsp[0].node); }
 #line 1636 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 47: /* RelOp: T_GT  */
-#line 390 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                { (yyval.op_class) = (int)ast_operator_type::AST_OP_GT; }
-#line 1642 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 48: /* RelOp: T_GE  */
-#line 391 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                { (yyval.op_class) = (int)ast_operator_type::AST_OP_GE; }
-#line 1648 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 49: /* AddExp: AddExp AddOp MulExp  */
-#line 399 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                              { // <--- 修改为左递归
-            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
+  case 42: /* LOrExp: LOrExp T_LOR LAndExp  */
+#line 401 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                               {
+            (yyval.node) = create_contain_node(ast_operator_type::AST_OP_LOR, (yyvsp[-2].node), (yyvsp[0].node));
         }
-#line 1656 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1644 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 50: /* AddExp: MulExp  */
-#line 402 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                 { (yyval.node) = (yyvsp[0].node); }
-#line 1662 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+  case 43: /* LOrExp: LAndExp  */
+#line 404 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                  { (yyval.node) = (yyvsp[0].node); }
+#line 1650 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 51: /* MulExp: MulExp MulOp UnaryExp  */
-#line 405 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                                { // <--- 修改为左递归
-            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
-        }
-#line 1670 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
-    break;
-
-  case 52: /* MulExp: UnaryExp  */
+  case 44: /* LAndExp: LAndExp T_LAND EqExp  */
 #line 408 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                   { (yyval.node) = (yyvsp[0].node); }
-#line 1676 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+                               { // 注意这里下一级是 EqExp (相等表达式)
+            (yyval.node) = create_contain_node(ast_operator_type::AST_OP_LAND, (yyvsp[-2].node), (yyvsp[0].node));
+        }
+#line 1658 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 53: /* AddOp: T_ADD  */
-#line 414 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-             {
-		(yyval.op_class) = (int)ast_operator_type::AST_OP_ADD;
-	}
+  case 45: /* LAndExp: EqExp  */
+#line 411 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                { (yyval.node) = (yyvsp[0].node); }
+#line 1664 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 46: /* EqExp: EqExp EqOp RelExp  */
+#line 415 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                            { // 注意这里下一级是 RelExp (关系表达式)
+            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
+        }
+#line 1672 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 47: /* EqExp: RelExp  */
+#line 418 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                 { (yyval.node) = (yyvsp[0].node); }
+#line 1678 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 48: /* EqOp: T_EQ  */
+#line 422 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_EQ; }
 #line 1684 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 54: /* AddOp: T_SUB  */
-#line 417 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-                {
-		(yyval.op_class) = (int)ast_operator_type::AST_OP_SUB;
-	}
-#line 1692 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+  case 49: /* EqOp: T_NE  */
+#line 423 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_NE; }
+#line 1690 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 55: /* MulOp: T_MUL  */
-#line 422 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-              {
-            (yyval.op_class) = (int)ast_operator_type::AST_OP_MUL;
+  case 50: /* RelExp: RelExp RelOp AddExp  */
+#line 427 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                              { // 注意这里下一级是 AddExp (加法表达式)
+            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
         }
-#line 1700 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1698 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 56: /* MulOp: T_DIV  */
-#line 425 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-              {
-            (yyval.op_class) = (int)ast_operator_type::AST_OP_DIV;
-        }
-#line 1708 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+  case 51: /* RelExp: AddExp  */
+#line 430 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                 { (yyval.node) = (yyvsp[0].node); }
+#line 1704 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 57: /* MulOp: T_MOD  */
-#line 428 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
-              {
-            (yyval.op_class) = (int)ast_operator_type::AST_OP_MOD;
-        }
+  case 52: /* RelOp: T_LT  */
+#line 434 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_LT; }
+#line 1710 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 53: /* RelOp: T_LE  */
+#line 435 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_LE; }
 #line 1716 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 58: /* UnaryExp: PrimaryExp  */
-#line 435 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 54: /* RelOp: T_GT  */
+#line 436 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_GT; }
+#line 1722 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 55: /* RelOp: T_GE  */
+#line 437 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                { (yyval.op_class) = (int)ast_operator_type::AST_OP_GE; }
+#line 1728 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 56: /* AddExp: AddExp AddOp MulExp  */
+#line 445 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                              { // <--- 修改为左递归
+            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
+        }
+#line 1736 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 57: /* AddExp: MulExp  */
+#line 448 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                 { (yyval.node) = (yyvsp[0].node); }
+#line 1742 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 58: /* MulExp: MulExp MulOp UnaryExp  */
+#line 451 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                                { // <--- 修改为左递归
+            (yyval.node) = create_contain_node((ast_operator_type)(yyvsp[-1].op_class), (yyvsp[-2].node), (yyvsp[0].node));
+        }
+#line 1750 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 59: /* MulExp: UnaryExp  */
+#line 454 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                   { (yyval.node) = (yyvsp[0].node); }
+#line 1756 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 60: /* AddOp: T_ADD  */
+#line 460 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+             {
+		(yyval.op_class) = (int)ast_operator_type::AST_OP_ADD;
+	}
+#line 1764 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 61: /* AddOp: T_SUB  */
+#line 463 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+                {
+		(yyval.op_class) = (int)ast_operator_type::AST_OP_SUB;
+	}
+#line 1772 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 62: /* MulOp: T_MUL  */
+#line 468 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+              {
+            (yyval.op_class) = (int)ast_operator_type::AST_OP_MUL;
+        }
+#line 1780 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 63: /* MulOp: T_DIV  */
+#line 471 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+              {
+            (yyval.op_class) = (int)ast_operator_type::AST_OP_DIV;
+        }
+#line 1788 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 64: /* MulOp: T_MOD  */
+#line 474 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+              {
+            (yyval.op_class) = (int)ast_operator_type::AST_OP_MOD;
+        }
+#line 1796 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+    break;
+
+  case 65: /* UnaryExp: PrimaryExp  */
+#line 481 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                       {
 		// 基本表达式
 
 		// 传递到归约后的UnaryExp上
 		(yyval.node) = (yyvsp[0].node);
 	}
-#line 1727 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1807 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 59: /* UnaryExp: T_SUB UnaryExp  */
-#line 441 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 66: /* UnaryExp: T_SUB UnaryExp  */
+#line 487 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                            { 
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_NEG, (yyvsp[0].node));
 	}
-#line 1735 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1815 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 60: /* UnaryExp: T_LNOT UnaryExp  */
-#line 445 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 67: /* UnaryExp: T_LNOT UnaryExp  */
+#line 491 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                       { // 逻辑非! 优先级由 %right T_LNOT 控制
         (yyval.node) = create_contain_node(ast_operator_type::AST_OP_LNOT, (yyvsp[0].node));
     }
-#line 1743 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1823 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 61: /* UnaryExp: T_ID T_L_PAREN T_R_PAREN  */
-#line 449 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 68: /* UnaryExp: T_ID T_L_PAREN T_R_PAREN  */
+#line 495 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                    {
 		// 没有实参的函数调用
 
@@ -1760,11 +1840,11 @@ yyreduce:
 		(yyval.node) = create_func_call(name_node, paramListNode);
 
 	}
-#line 1764 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1844 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 62: /* UnaryExp: T_ID T_L_PAREN RealParamList T_R_PAREN  */
-#line 465 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 69: /* UnaryExp: T_ID T_L_PAREN RealParamList T_R_PAREN  */
+#line 511 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                                  {
 		// 含有实参的函数调用
 
@@ -1780,60 +1860,60 @@ yyreduce:
 		// 创建函数调用节点，其孩子为被调用函数名和实参，实参不为空
 		(yyval.node) = create_func_call(name_node, paramListNode);
 	}
-#line 1784 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1864 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 63: /* PrimaryExp: T_L_PAREN Expr T_R_PAREN  */
-#line 484 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 70: /* PrimaryExp: T_L_PAREN Expr T_R_PAREN  */
+#line 530 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                        {
 		// 带有括号的表达式
 		(yyval.node) = (yyvsp[-1].node);
 	}
-#line 1793 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1873 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 64: /* PrimaryExp: T_DIGIT  */
-#line 488 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 71: /* PrimaryExp: T_DIGIT  */
+#line 534 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                   {
         	// 无符号整型字面量
 
 		// 创建一个无符号整型的终结符节点
 		(yyval.node) = ast_node::New((yyvsp[0].integer_num));
 	}
-#line 1804 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1884 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 65: /* PrimaryExp: LVal  */
-#line 494 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 72: /* PrimaryExp: LVal  */
+#line 540 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                 {
 		// 具有左值的表达式
 
 		// 直接传递到归约后的非终结符号PrimaryExp
 		(yyval.node) = (yyvsp[0].node);
 	}
-#line 1815 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1895 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 66: /* RealParamList: Expr  */
-#line 506 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 73: /* RealParamList: Expr  */
+#line 552 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                      {
 		// 创建实参列表节点，并把当前的Expr节点加入
 		(yyval.node) = create_contain_node(ast_operator_type::AST_OP_FUNC_REAL_PARAMS, (yyvsp[0].node));
 	}
-#line 1824 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1904 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 67: /* RealParamList: RealParamList T_COMMA Expr  */
-#line 510 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 74: /* RealParamList: RealParamList T_COMMA Expr  */
+#line 556 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
                                      {
 		// 左递归增加实参表达式
 		(yyval.node) = (yyvsp[-2].node)->insert_son_node((yyvsp[0].node));
 	}
-#line 1833 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1913 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
-  case 68: /* LVal: T_ID  */
-#line 517 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+  case 75: /* LVal: T_ID  */
+#line 563 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
             {
 		// 变量名终结符
 
@@ -1843,11 +1923,11 @@ yyreduce:
 		// 对于字符型字面量的字符串空间需要释放，因词法用到了strdup进行了字符串复制
 		free((yyvsp[0].var_id).id);
 	}
-#line 1847 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1927 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
     break;
 
 
-#line 1851 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
+#line 1931 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/autogenerated/MiniCBison.cpp"
 
       default: break;
     }
@@ -2040,7 +2120,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 528 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
+#line 574 "/home/code/LAB1/exp04-minic-expr/frontend/flexbison/MiniC.y"
 
 
 // 语法识别错误要调用函数的定义

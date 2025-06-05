@@ -171,12 +171,11 @@ bool IRGenerator::ir_compile_unit(ast_node * node)
 /// @return 翻译是否成功，true：成功，false：失败
 bool IRGenerator::ir_function_define(ast_node * node)
 {
-    bool result;
-
     // 创建一个函数，用于当前函数处理
     if (module->getCurrentFunction()) {
         // 函数中嵌套定义函数，这是不允许的，错误退出
-        // TODO 自行追加语义错误处理
+        minic_log(LOG_ERROR, "Nested function definitions are not allowed. Function '%s' defined inside '%s'.",
+                  node->sons[1]->name.c_str(), module->getCurrentFunction()->getName().c_str());
         return false;
     }
 
@@ -187,14 +186,15 @@ bool IRGenerator::ir_function_define(ast_node * node)
     // 第四个孩子：函数体即block
     ast_node * type_node = node->sons[0];
     ast_node * name_node = node->sons[1];
-    ast_node * param_node = node->sons[2];
-    ast_node * block_node = node->sons[3];
+    ast_node * params_ast_node = node->sons[2]; // AST node for formal parameters list
+    ast_node * block_ast_node = node->sons[3];  // AST node for the function body block
 
     // 创建一个新的函数定义
+    // 假设 module->newFunction 能够处理 FunctionType 正确推断（如果 type_node->type 已经是 FunctionType*）
+    // 或者它只取用返回类型 type_node->type
     Function * newFunc = module->newFunction(name_node->name, type_node->type);
     if (!newFunc) {
-        // 新定义的函数已经存在，则失败返回。
-        // TODO 自行追加语义错误处理
+        minic_log(LOG_ERROR, "Failed to create new function '%s'. It might already exist or name/type is invalid.", name_node->name.c_str());
         return false;
     }
 
@@ -204,72 +204,91 @@ bool IRGenerator::ir_function_define(ast_node * node)
     // 进入函数的作用域
     module->enterScope();
 
-    // 获取函数的IR代码列表，用于后面追加指令用，注意这里用的是引用传值
+    // 获取函数的IR代码列表，用于后面追加指令用
     InterCode & irCode = newFunc->getInterCode();
 
-    // 这里也可增加一个函数入口Label指令，便于后续基本块划分
-	LabelInstruction* entryLabel = new LabelInstruction(newFunc, ".L" + std::to_string(label_counter_++));
-	irCode.addInst(entryLabel);
-    // 创建并加入Entry入口指令
+    // 1. 添加函数入口的自定义标签 (例如 .L0:)
+    LabelInstruction* entryCustomLabel = new LabelInstruction(newFunc, ".L_entry_" + newFunc->getName() + "_" + std::to_string(label_counter_++));
+    irCode.addInst(entryCustomLabel);
+
+    // 2. 创建并加入标准的 Entry 指令
     irCode.addInst(new EntryInstruction(newFunc));
 
-    // 创建出口指令并不加入出口指令，等函数内的指令处理完毕后加入出口指令
-    std::string exit_label_name = ".L" + std::to_string(label_counter_++); // 或者其他唯一名称生成方式
-	LabelInstruction * exitLabelInst = new LabelInstruction(newFunc, exit_label_name);
+    // 3. 创建出口 Label 指令 (不立即加入)
+    std::string exit_label_name = ".L_exit_" + newFunc->getName() + "_" + std::to_string(label_counter_++);
+    LabelInstruction * exitLabelInst = new LabelInstruction(newFunc, exit_label_name);
+    newFunc->setExitLabel(exitLabelInst); // 保存到函数信息中
 
-    // 函数出口指令保存到函数信息中，因为在语义分析函数体时return语句需要跳转到函数尾部，需要这个label指令
-    newFunc->setExitLabel(exitLabelInst);
-
-    // 遍历形参，没有IR指令，不需要追加
-    result = ir_function_formal_params(param_node);
-    if (!result) {
-        // 形参解析失败
-        // TODO 自行追加语义错误处理
+    // 4. 处理形式参数
+    //    ir_function_formal_params 会:
+    //    a) 为 newFunc 添加 FormalParam 对象 (通过调用类似 newFunc->addFormalParam)。
+    //    b) 为每个形参创建对应的局部变量 (通过调用 newFunc->newLocalVarValue)。
+    //    c) 生成 Move 指令 (传入值 -> 局部变量副本) 并存入 params_ast_node->blockInsts。
+    params_ast_node->blockInsts.clear(); // 确保 params_ast_node 的指令列表是干净的，以收集参数拷贝指令
+    if (!ir_function_formal_params(params_ast_node)) {
+        minic_log(LOG_ERROR, "Failed to process formal parameters for function '%s'.", newFunc->getName().c_str());
+        module->leaveScope();
+        module->setCurrentFunction(nullptr);
         return false;
     }
-    node->blockInsts.addInst(param_node->blockInsts);
+    // 将参数拷贝指令添加到函数的 IR 代码中
+    irCode.addInst(params_ast_node->blockInsts);
 
-    // 新建一个Value，用于保存函数的返回值，如果没有返回值可不用申请
+    // 5. 创建并设置函数返回值变量 (如果函数返回非 void)
     LocalVariable * retValue = nullptr;
     if (!type_node->type->isVoidType()) {
-
-        // 保存函数返回值变量到函数信息中，在return语句翻译时需要设置值到这个变量中
-        retValue = static_cast<LocalVariable *>(module->newVarValue(type_node->type));
+        // 使用 Function 类的方法来创建作为返回值的局部变量
+        // ".retval" 是一个建议的内部名称，你可以选择其他方式命名
+        retValue = newFunc->newLocalVarValue(type_node->type, ".retval_" + newFunc->getName());
+        if (!retValue) {
+            minic_log(LOG_ERROR, "Failed to create return value variable for function '%s'.", newFunc->getName().c_str());
+            module->leaveScope();
+            module->setCurrentFunction(nullptr);
+            return false;
+        }
     }
-    newFunc->setReturnValue(retValue);
+    newFunc->setReturnValue(retValue); // 即使 retValue 是 nullptr (对于 void 函数)，也设置它
 
-    // 这里最好设置返回值变量的初值为0，以便在没有返回值时能够返回0
+    // 6. 如果是 main 函数并且有返回值变量，则初始化为 0
+    if (newFunc->getName() == "main" && retValue) {
+        ConstInt* zero_constant = module->newConstInt(0); // 获取一个值为0的常量
+        if (zero_constant) {
+            irCode.addInst(new MoveInstruction(newFunc, retValue, zero_constant));
+        } else {
+            minic_log(LOG_WARNING, "Could not obtain a zero constant to initialize main's return value for function '%s'.", newFunc->getName().c_str());
+            // 继续执行，但这可能不是期望的行为
+        }
+    }
 
-    // 函数内已经进入作用域，内部不再需要做变量的作用域管理
-    block_node->needScope = false;
-
-    // 遍历block
-    result = ir_block(block_node);
-    if (!result) {
-        // block解析失败
-        // TODO 自行追加语义错误处理
+    // 7. 处理函数体 (Block)
+    block_ast_node->needScope = false; // 函数体 Block 不需要再创建新的作用域，由本函数管理
+    block_ast_node->blockInsts.clear(); // 清空，确保仅收集函数体的指令
+    
+    ast_node* visited_block_node = ir_visit_ast_node(block_ast_node);
+    if (!visited_block_node) {
+        minic_log(LOG_ERROR, "Failed to process block (function body) for function '%s'.", newFunc->getName().c_str());
+        module->leaveScope();
+        module->setCurrentFunction(nullptr);
         return false;
     }
+    // 将函数体的指令添加到函数的 IR 代码中
+    irCode.addInst(visited_block_node->blockInsts);
 
-    // IR指令追加到当前的节点中
-    node->blockInsts.addInst(block_node->blockInsts);
-
-    // 此时，所有指令都加入到当前函数中，也就是node->blockInsts
-
-    // node节点的指令移动到函数的IR指令列表中
-    irCode.addInst(node->blockInsts);
-
-    // 添加函数出口Label指令，主要用于return语句跳转到这里进行函数的退出
+    // 8. 添加函数出口 Label 指令 (之前已创建)
     irCode.addInst(exitLabelInst);
 
-    // 函数出口指令
+    // 9. 添加 Exit 指令
     irCode.addInst(new ExitInstruction(newFunc, retValue));
 
-    // 恢复成外部函数
-    module->setCurrentFunction(nullptr);
+    // 清理和收尾
+    module->setCurrentFunction(nullptr); // 恢复成外部（全局）上下文
+    module->leaveScope();              // 退出函数的作用域
 
-    // 退出函数的作用域
-    module->leaveScope();
+    // 函数定义 AST 节点本身不持有最终的函数 IR 指令流，
+    // 那些指令已经直接添加到了 newFunc->getInterCode() 中。
+    // node->blockInsts 在这里可以保持为空，或者你可以选择不使用它。
+    node->blockInsts.clear(); 
+    node->val = newFunc; // 可选：让函数定义 AST 节点指向创建的 Function 对象
 
     return true;
 }
@@ -277,18 +296,96 @@ bool IRGenerator::ir_function_define(ast_node * node)
 /// @brief 形式参数AST节点翻译成线性中间IR
 /// @param node AST节点
 /// @return 翻译是否成功，true：成功，false：失败
-bool IRGenerator::ir_function_formal_params(ast_node * node)
-{
-    // TODO 目前形参还不支持，直接返回true
+// In IRGenerator.cpp
+bool IRGenerator::ir_function_formal_params(ast_node * params_ast_node) {
+    minic_log(LOG_DEBUG, "Processing formal parameters for function '%s'.", module->getCurrentFunction()->getName().c_str());
+    Function* current_func = module->getCurrentFunction();
+    if (!current_func) {
+        minic_log(LOG_ERROR, "ir_function_formal_params: current_func is null.");
+        return false;
+    }
 
-    // 每个形参变量都创建对应的临时变量，用于表达实参转递的值
-    // 而真实的形参则创建函数内的局部变量。
-    // 然后产生赋值指令，用于把表达实参值的临时变量拷贝到形参局部变量上。
-    // 请注意这些指令要放在Entry指令后面，因此处理的先后上要注意。
+    // params_ast_node is AST_OP_FUNC_FORMAL_PARAMS
+    // Its children (params_ast_node->sons) are AST_OP_VAR_DECL nodes
+    unsigned param_idx_counter = 0; // For diagnostics or if addFormalParam needs explicit index
+
+    for (ast_node* param_var_decl_node : params_ast_node->sons) {
+        if (!param_var_decl_node || param_var_decl_node->node_type != ast_operator_type::AST_OP_VAR_DECL) {
+            minic_log(LOG_ERROR, "Expected AST_OP_VAR_DECL for formal parameter, got different type or null.");
+            continue; // Skip malformed parameter AST
+        }
+        if (param_var_decl_node->sons.size() < 2) {
+            minic_log(LOG_ERROR, "AST_OP_VAR_DECL for parameter has insufficient children (expected type and id).");
+            continue;
+        }
+
+        ast_node* type_ast = param_var_decl_node->sons[0]; // Type node
+        ast_node* id_ast = param_var_decl_node->sons[1];   // Identifier node
+
+        if (!type_ast || !type_ast->type) {
+            minic_log(LOG_ERROR, "Parameter type node or type itself is null for param '%s'.", id_ast ? id_ast->name.c_str() : "unknown");
+            return false;
+        }
+        if (!id_ast) {
+             minic_log(LOG_ERROR, "Parameter identifier node is null.");
+             return false;
+        }
+
+        Type* param_type = type_ast->type;
+        std::string param_name = id_ast->name;
+
+        minic_log(LOG_DEBUG, "  Param %u: Name='%s', Type='%s'", param_idx_counter, param_name.c_str(), param_type->toString().c_str());
+
+        // 1. Create FormalParam object representing the incoming argument value.
+        //    This object represents the value as passed by the caller (e.g., in a register or on stack).
+        //    The Function::addFormalParam call handles adding it to current_func->params.
+        FormalParam* incoming_arg_value = current_func->addFormalParam(param_type, param_name);
+        if (!incoming_arg_value) {
+            minic_log(LOG_ERROR, "Failed to create FormalParam object for '%s'.", param_name.c_str());
+            return false;
+        }
+        // At this point, incoming_arg_value's IR name might be unset or a default.
+        // It will be properly named (e.g., %arg0) during current_func->renameIR().
+
+        // 2. Create a local variable copy for this formal parameter.
+        //    This local variable will have space allocated on the current function's stack frame.
+        //    The programmer will use this variable's name in the function body.
+        //    The scope level for parameters is typically the function's outermost local scope (e.g., level 1 if global is 0).
+        int param_scope_level = module->getScopeStack()->getCurrentScopeLevel(); // Or a fixed level like 1
+        LocalVariable* local_param_copy = current_func->newLocalVarValue(param_type, param_name, param_scope_level);
+        if (!local_param_copy) {
+            minic_log(LOG_ERROR, "Failed to create local variable copy for parameter '%s'.", param_name.c_str());
+            return false;
+        }
+        // local_param_copy will get an IR name like %1, %2 or %var_name_lv via renameIR()
+
+        // 3. Add the local variable copy to the symbol table for the current scope.
+        if (!module->getScopeStack()->insertValue(local_param_copy)) {
+            // insertValue should ideally return bool or throw if redefinition in same scope occurs
+            minic_log(LOG_ERROR, "Failed to insert local copy of param '%s' into symbol table. Redefinition?", param_name.c_str());
+            // If newLocalVarValue already checks for redefinition in current_func's vars, this might be redundant
+            // but ScopeStack check is good for general symbol management.
+            return false;
+        }
+        // Associate the AST ID node with the local variable for semantic checks later if needed
+        id_ast->val = local_param_copy;
+        param_var_decl_node->val = local_param_copy; // The VAR_DECL node now points to the usable local variable
+
+        // 4. Generate a MoveInstruction to copy the incoming argument value (FormalParam)
+        //    into the local variable copy (LocalVariable).
+        //    This happens at the beginning of the function, after the EntryInstruction.
+        //    The IR will look something like: move %local_param_copy, %incoming_arg_value
+        MoveInstruction* copy_inst = new MoveInstruction(current_func, local_param_copy, incoming_arg_value);
+        params_ast_node->blockInsts.addInst(copy_inst); // Collect these instructions
+
+        minic_log(LOG_DEBUG, "    Created FormalParam IR: '%s' (placeholder), LocalCopy IR: '%s' (placeholder). Added Move.",
+            incoming_arg_value->getIRName().c_str(), local_param_copy->getIRName().c_str());
+
+        param_idx_counter++;
+    }
 
     return true;
 }
-
 /// @brief 函数调用AST节点翻译成线性中间IR
 /// @param node AST节点
 /// @return 翻译是否成功，true：成功，false：失败
@@ -1163,13 +1260,7 @@ bool IRGenerator::ir_visit_conditional_node(ast_node* node, LabelInstruction* tr
                     }
                 }
             }
-            std::cerr << "    --- End of instructions in visited_node->blockInsts ---" << std::endl;
-            // --- 调试打印结束 ---
-
-            
-
-            // --- 调试打印追加后的 node->blockInsts 的内容 ---
-            std::cerr << "    --- Instructions in current node->blockInsts (AFTER append): ---" << std::endl;
+        
              if (node->blockInsts.getInsts().empty()) {
                  std::cerr << "        (empty)" << std::endl;
             } else {
@@ -1309,13 +1400,17 @@ bool IRGenerator::ir_logical_or(ast_node * node, LabelInstruction* true_label, L
 
 // 处理逻辑非 !
 bool IRGenerator::ir_logical_not(ast_node * node, LabelInstruction* true_label, LabelInstruction* false_label) {
-    node->blockInsts.clear();
-    ast_node* expr = node->sons[0];
-    if (!ir_visit_conditional_node(expr, true_label, false_label)) return false;
-    appendInstructionsToNode(node, expr->blockInsts);
+    node->blockInsts.clear(); // Good practice
+    ast_node* expr_node = node->sons[0]; 
+
+    // Key fix: swap labels when visiting the sub-expression
+    if (!ir_visit_conditional_node(expr_node, false_label, true_label)) { 
+        return false;
+    }
+    
+    appendInstructionsToNode(node, expr_node->blockInsts);
     return true;
 }
-
 // IRGenerator.cpp
 bool IRGenerator::ir_lnot_expression(ast_node * node) {
     if (!node) {

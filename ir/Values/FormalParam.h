@@ -18,7 +18,7 @@
 
 #include "Value.h"
 #include "IRConstant.h"
-
+class Function;
 /// @brief 描述函数形参类
 class FormalParam : public Value {
 
@@ -26,18 +26,12 @@ public:
     /// @brief 基本类型的参数
     /// @param _name 形参的名字
     /// @param _type 基本类型
-    FormalParam(Type * _type, std::string _name) : Value(_type)
-    {
-        this->name = _name;
-    };
-
-    // /// @brief 输出字符串
-    // /// @param str
-    // std::string toString() override
-    // {
-    //     return type->toString() + " " + IRName;
-    // }
-
+	FormalParam(Type* _type, std::string _name, Function* parent_func, unsigned arg_idx)
+    : Value(_type), parentFunction(parent_func), argumentIndex(arg_idx)
+	{
+    this->setName(_name); // 使用基类的 setName
+    // this->setIRName(...); // 可选的初始 IRName 设置
+	}
     ///
     /// @brief 获得分配的寄存器编号或ID
     /// @return int32_t 寄存器编号
@@ -103,10 +97,13 @@ public:
     /// @brief 设置寄存器编号
     /// @param _regId 寄存器编号
     ///
-    void setRegId(int32_t _regId)
+    void setRegId(int32_t _regId) override
     {
         this->regId = _regId;
     }
+
+    [[nodiscard]] Function* getParentFunction() const { return parentFunction; }
+    [[nodiscard]] unsigned getArgumentIndex() const { return argumentIndex; }
 
 private:
     ///
@@ -133,4 +130,7 @@ private:
     /// @brief 变量加载到寄存器中时对应的寄存器编号
     ///
     int32_t loadRegNo = -1;
+
+    Function* parentFunction; // Pointer to the function this parameter belongs to
+    unsigned argumentIndex;   // Index of this parameter (0-based)
 };

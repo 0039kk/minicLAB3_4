@@ -28,11 +28,25 @@ Module::Module(std::string _name) : name(_name)
 
     // 确保全局变量作用域入栈，这样全局变量才可以加入
     scopeStack->enterScope();
+	FunctionType* func_type_ptr = nullptr;
 
-    // 加入内置函数putint
-    (void) newFunction("putint", VoidType::getType(), {new FormalParam{IntegerType::getTypeInt(), ""}}, true);
-    (void) newFunction("getint", IntegerType::getTypeInt(), {}, true);
-    (void) newFunction("putch", VoidType::getType(), {new FormalParam{IntegerType::getTypeInt(), ""}}, true);
+    // void putint(int val)
+    // 注意：这里的 {IntegerType::getTypeInt()} 创建了一个临时的 vector，然后传递给 FunctionType 构造函数
+    // 如果 IntegerType::getTypeInt() 返回的是单例，这是可以的。
+    // 如果不是，你也需要管理这些 Type* 的生命周期。
+    func_type_ptr = new FunctionType(VoidType::getType(), {IntegerType::getTypeInt()});
+    managed_types_.push_back(func_type_ptr); // <--- 将新创建的类型添加到管理列表
+    newFunction("putint", func_type_ptr, true);
+
+    // int getint()
+    func_type_ptr = new FunctionType(IntegerType::getTypeInt(), {}); // 空参数列表
+    managed_types_.push_back(func_type_ptr); // <--- 添加到管理列表
+    newFunction("getint", func_type_ptr, true);
+
+    // void putch(int char_val)
+    func_type_ptr = new FunctionType(VoidType::getType(), {IntegerType::getTypeInt()});
+    managed_types_.push_back(func_type_ptr); // <--- 添加到管理列表
+    newFunction("putch", func_type_ptr, true);
 }
 
 /// @brief 进入作用域，如进入函数体块、语句块等
@@ -100,6 +114,41 @@ Function * Module::newFunction(std::string name, Type * returnType, std::vector<
 
     return tempFunc;
 }
+
+Function* Module::newFunction(const std::string& name, FunctionType* func_type, bool builtin) {
+    if (findFunction(name)) {
+        // 函数已存在，处理错误或返回现有函数
+        minic_log(LOG_WARNING, "Function '%s' already exists. Returning existing function.", name.c_str());
+        return findFunction(name); // 或者返回 nullptr 并由调用者处理
+    }
+
+    if (!func_type) {
+        minic_log(LOG_ERROR, "Cannot create function '%s': func_type is null.", name.c_str());
+        return nullptr;
+    }
+
+    // 1. 创建 Function 对象
+    //    Function 构造函数需要 (std::string name, FunctionType* type, bool builtin)
+    Function* new_func = new Function(name, func_type, builtin); // Function 的类型就是 FunctionType
+
+    // 2. 为 Function 对象添加形式参数
+    //    FunctionType 只有类型，没有名字。我们需要为参数生成默认名或使用空名。
+    //    FormalParam 的名字在 IR 生成时可以不那么重要，因为局部副本会被使用。
+    //    或者，你可以修改 Function::addFormalParam 接受一个可选的名字。
+    //    我们之前同意 Function::addFormalParam(Type* type, const std::string& name) 是好的。
+    const std::vector<Type*>& arg_types = func_type->getArgTypes();
+    for (size_t i = 0; i < arg_types.size(); ++i) {
+        std::string param_name = "param" + std::to_string(i); // 生成一个默认参数名，如 "param0", "param1"
+                                                              // 或者直接传空字符串 "" 如果你的系统允许
+        new_func->addFormalParam(arg_types[i], param_name);
+    }
+
+    // 3. 将新函数添加到模块的内部数据结构
+    insertFunctionDirectly(new_func); // 假设这个方法将其添加到 funcMap 和 funcVector
+
+    return new_func;
+}
+
 
 /// @brief 根据函数名查找函数信息
 /// @param name 函数名

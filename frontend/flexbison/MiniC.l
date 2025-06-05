@@ -100,7 +100,11 @@ h           [0-9a-fA-F]
                 return T_DIGIT;
             }
 
-
+"void"      {
+                yylval.type.type = BasicType::TYPE_VOID; // 假设 AttrType.h 中有 TYPE_VOID
+                yylval.type.lineno = yylineno;
+                return T_VOID; // 你需要在 .y 中声明 %token T_VOID <type>
+            }
 "int"       {
                 // int类型关键字 关键字的识别要在标识符识别的前边，这是因为关键字也是标识符，不过是保留的
                 yylval.type.type = BasicType::TYPE_INT;

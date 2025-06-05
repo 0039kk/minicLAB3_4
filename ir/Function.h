@@ -179,6 +179,7 @@ public:
     [[nodiscard]] const std::vector<Value*>& getTempVars() const;
 	std::string newTempName();
 
+    FormalParam* addFormalParam(Type* type, const std::string& name);
 private:
     ///
     /// @brief 函数的返回值类型，有点冗余，可删除，直接从type中取得即可

@@ -87,7 +87,9 @@ public:
     /// @return 新建的函数对象实例
     Function *
     newFunction(std::string name, Type * returnType, std::vector<FormalParam *> params = {}, bool builtin = false);
-
+	 // 新的、推荐的 newFunction 声明，使用 FunctionType
+	Function *
+	newFunction(const std::string& name, FunctionType* func_type, bool builtin = false);
     /// @brief 根据函数名查找函数信息
     /// @param name 函数名
     /// @return 函数信息
@@ -210,5 +212,7 @@ private:
     int temp_var_counter_ = 0; // 用于生成唯一的临时变量名
 
     std::map<std::pair<Type*, int32_t>, ConstInt*> integer_constant_cache_;
+
+    std::vector<Type *> managed_types_; // 用于存储 Module 创建的需要管理的 Type 对象
 };
 
